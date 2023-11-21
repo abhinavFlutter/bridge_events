@@ -25,7 +25,7 @@ class _BridgeState extends State<Login> {
               const Center(
                   child: Padding(
                 padding: EdgeInsets.all(10.0),
-                child: Text("Bridge Communication",
+                child: Text("Bridge Events",
                     style:
                         TextStyle(fontSize: 28, fontWeight: FontWeight.w900)),
               )),

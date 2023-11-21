@@ -43,13 +43,13 @@ class _RegState extends State<Register> {
                     child: Text(
                       "You are where you find the best\n          you are looking for!",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 15,wordSpacing: 3,letterSpacing: 2
                       ),
                     ),
                   )),
                   const Center(
                       child: Text(
-                    "Bridge Communication",
+                    "Bridge Events",
                     style: TextStyle(fontSize: 23, fontWeight: FontWeight.w600),
                   )),
                   Column(mainAxisAlignment: MainAxisAlignment.end, children: [
