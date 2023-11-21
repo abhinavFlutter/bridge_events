@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -24,10 +25,9 @@ class _ProfileState extends State<Profile> {
       ),
       body: Form(
           key: loginKey,
-          child: Container(
+          child: SizedBox(
             height: size.height,
             width: size.width,
-            decoration: const BoxDecoration(color: Colors.white),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -83,6 +83,25 @@ class _ProfileState extends State<Profile> {
                           return null;
                         },
                       )),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 50, left: 50, top: 15),
+                    child: IntlPhoneField(
+                      decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white38),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          hintText: " Mobile",
+                          hintStyle: TextStyle(color: Colors.black),
+                          suffixIcon: Icon(Icons.phone_android, size: 15),
+                          filled: true,
+                          fillColor: Color.fromARGB(129, 129, 129, 129)),
+                      initialCountryCode: 'IN',
+                    ),
+                  ),
                   Padding(
                       padding:
                           const EdgeInsets.only(right: 50, left: 50, top: 15),
@@ -95,21 +114,21 @@ class _ProfileState extends State<Profile> {
                                 borderSide: BorderSide(color: Colors.white38),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15))),
-                            hintText: " Mobile",
+                            hintText: " Mobile ",
                             hintStyle: TextStyle(color: Colors.black),
                             // labelText: ' Email',
                             // labelStyle: TextStyle(color: Colors.black),
-                            suffixIcon: Icon(Icons.phone_android, size: 15),
+                            suffixIcon: Icon(Icons.alternate_email, size: 15),
                             filled: true,
                             fillColor: Color.fromARGB(129, 129, 129, 129)),
-                        controller: mobileController,
+                        controller: emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Enter your mobile number";
+                            return "enter your mobile number";
                           }
                           if (!RegExp(r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$')
                               .hasMatch(value)) {
-                            return "Enter valid mobile number";
+                            return "Enter a valid mobile number address";
                           }
                         },
                       )),
