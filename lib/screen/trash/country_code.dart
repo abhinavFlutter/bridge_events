@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: IntlPhoneField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Phone Number',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(),

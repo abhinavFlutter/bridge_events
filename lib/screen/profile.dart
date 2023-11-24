@@ -38,8 +38,7 @@ class _ProfileState extends State<Profile> {
                       const CircleAvatar(
                         radius: 80,
                         backgroundColor: Colors.black,
-                        child: CircleAvatar(
-                          radius: 75,
+                        child: CircleAvatar(radius: 75,
                           backgroundImage: AssetImage(
                             'assets/images/profile1.jpg',
                           ),

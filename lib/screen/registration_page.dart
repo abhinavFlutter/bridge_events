@@ -1,3 +1,4 @@
+import 'package:bridge_events/screen/login_page.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -262,7 +263,13 @@ class _RegState extends State<Register> {
                       children: [
                         const Center(child: Text("Already have an account?")),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                  return Login();
+                                },));
+                              });
+                            },
                             child: const Text(
                               "Login",
                               style:
