@@ -12,7 +12,8 @@ class Login extends StatefulWidget {
 }
 
 var emailController = TextEditingController();
-var passwordController = TextEditingController();
+ var passwordController = TextEditingController();
+bool passVisible = false;
 
 class _BridgeState extends State<Login> {
   final loginKey = GlobalKey<FormState>();
@@ -78,12 +79,12 @@ class _BridgeState extends State<Login> {
                           controller: emailController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return ("please enter your email");
+                              return ("Please enter your email");
                             }
                             if (!RegExp(
                                     r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
                                 .hasMatch(value)) {
-                              return "enter a valid email address";
+                              return "Enter a valid email address";
                             }
                             return null;
                           }),
@@ -93,7 +94,7 @@ class _BridgeState extends State<Login> {
                           const EdgeInsets.only(right: 50, left: 50, top: 25),
                       child: TextFormField(
                           // maxLength: 8,obscureText: true,obscuringCharacter: "*",
-                          decoration: const InputDecoration(
+                          decoration:  InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15))),
@@ -103,18 +104,27 @@ class _BridgeState extends State<Login> {
                                       BorderRadius.all(Radius.circular(15))),
                               hintText: " Password",
                               hintStyle: TextStyle(color: Colors.black),
-                              suffixIcon: Icon(Icons.lock_outline, size: 15),
+                              suffixIcon: IconButton(onPressed: () {
+                                setState(() {
+                                  passVisible=!passVisible;
+                                });
+                              }, icon: Icon(passVisible
+                                  ?Icons.visibility
+                                  :Icons.visibility_off
+                              ),iconSize: 17),
                               filled: true,
                               fillColor: Color.fromARGB(129, 129, 129, 129)),
                           controller: passwordController,
+                          obscureText: !passVisible,
+                          obscuringCharacter: "*",
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return ("please enter your password");
+                              return ("Please enter your password");
                             }
                             if (!RegExp(
                                     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,12}$')
                                 .hasMatch(value)) {
-                              return "enter valid password";
+                              return "Enter valid password";
                             }
                             return null;
                           }),

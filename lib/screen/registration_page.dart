@@ -11,11 +11,14 @@ class Register extends StatefulWidget {
 
 class _RegState extends State<Register> {
   var loginKey = GlobalKey<FormState>();
+  var name=TextEditingController();
   var password = TextEditingController();
   var confirm = TextEditingController();
   // var passwordController = TextEditingController();
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
+  bool passVisible=false;
+  bool confirmPassVisible=false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,11 +74,15 @@ class _RegState extends State<Register> {
                             suffixIcon: Icon(Icons.person_add, size: 15),
                             filled: true,
                             fillColor: Color.fromARGB(129, 129, 129, 129)),
+                        controller: name,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return ("please enter your name");
+                            return ("Please enter your name");
                           }
-                          return null;
+                          if(!RegExp( r'^[A-Za-z]+([\ A-Za-z]+)$').hasMatch(value)){
+                            return "Enter your name";
+                          }
+                              return null;
                         },
                       ),
                     ),
@@ -100,11 +107,12 @@ class _RegState extends State<Register> {
                         controller: phoneController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return ("please enter your number");
+                            return ("Please enter your number");
                           }
+
                           if (!RegExp(r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$')
                               .hasMatch(value)) {
-                            return "enter phone number";
+                            return "Enter phone number";
                           }
                           return null;
                         },
@@ -130,7 +138,7 @@ class _RegState extends State<Register> {
                           controller: emailController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return ("please enter your email");
+                              return ("Please enter your email");
                             }
                             if (!RegExp(
                                     r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
@@ -144,31 +152,39 @@ class _RegState extends State<Register> {
                       padding:
                           const EdgeInsets.only(right: 50, left: 50, top: 25),
                       child: TextFormField(
-                        obscureText: true,
+                        obscureText: !passVisible,
                         obscuringCharacter: "*",
-                        decoration: const InputDecoration(
+                        decoration:  InputDecoration(
                             focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15))),
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white38),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15))),
                             hintText: "Password",
                             hintStyle: TextStyle(color: Colors.black),
                             suffixIcon:
-                                Icon(Icons.lock_outline_sharp, size: 15),
+                              IconButton(onPressed: () {
+                                setState(() {
+                                  passVisible=!passVisible;
+                                });
+                              }, icon: Icon(passVisible
+                              ?Icons.visibility
+                              :Icons.visibility_off
+                              ),iconSize: 17),
                             filled: true,
-                            fillColor: Color.fromARGB(129, 129, 129, 129)),
+                            fillColor: const Color.fromARGB(129, 129, 129, 129)),
                         controller: password,
+
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return ("please enter your password");
+                            return ("Please enter your password");
                           }
                           if (!RegExp(
                                   r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,12}$')
                               .hasMatch(value)) {
-                            return "enter  valid password";
+                            return "Enter  valid password";
                           }
                           return null;
                         },
@@ -178,19 +194,26 @@ class _RegState extends State<Register> {
                       padding:
                           const EdgeInsets.only(right: 50, left: 50, top: 25),
                       child: TextFormField(
-                        obscureText: true,
+                        obscureText: !confirmPassVisible,
                         obscuringCharacter: '*',
-                        decoration: const InputDecoration(
+
+                        decoration:  InputDecoration(
                             focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15))),
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white38),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15))),
                             hintText: "Confirm Password",
                             hintStyle: TextStyle(color: Colors.black),
-                            suffixIcon: Icon(Icons.password, size: 15),
+                            suffixIcon: IconButton(onPressed: () {
+                              setState(() {
+                                confirmPassVisible=!confirmPassVisible;
+                              });
+                            }, icon: Icon(confirmPassVisible
+                            ?Icons.visibility
+                            :Icons.visibility_off),iconSize: 17,),
                             filled: true,
                             fillColor: Color.fromARGB(129, 129, 129, 129)),
                         controller: confirm,
@@ -199,7 +222,7 @@ class _RegState extends State<Register> {
                             return ("Re enter your password");
                           }
                           if (value != password.text) {
-                            return 'password must be same';
+                            return 'Password must be same';
                           }
 
                           return null;
@@ -224,7 +247,7 @@ class _RegState extends State<Register> {
                                     if (loginKey.currentState!.validate()) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(const SnackBar(
-                                              content: Text("success")));
+                                              content: Text("Success")));
                                     }
                                   },
                                   child: const Text(

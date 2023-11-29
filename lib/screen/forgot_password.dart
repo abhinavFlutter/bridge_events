@@ -58,12 +58,12 @@ class _ForgotPassState extends State<ForgotPass> {
                     controller: emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return ("please enter your email");
+                        return ("Please enter your email");
                       }
                       if (!RegExp(
                               r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
                           .hasMatch(value)) {
-                        return "enter a valid email address";
+                        return "Enter a valid email address";
                       }
                       return null;
                     }),

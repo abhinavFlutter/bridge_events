@@ -1,4 +1,5 @@
 import 'package:bridge_events/screen/forgot_password.dart';
+import 'package:bridge_events/screen/home_page.dart';
 
 import 'package:bridge_events/screen/login_page.dart';
 import 'package:bridge_events/screen/opening_page.dart';
