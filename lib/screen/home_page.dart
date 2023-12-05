@@ -54,18 +54,19 @@ class _MainScreenState extends State<MainScreen> {
       _selectedTab = SelectedTab.values[index];
     });
   }
-  int currentindex=0;
 
+  int currentindex = 0;
 
   final List<String> imageList = [
-    'assets/images/hindu.png',
-    'assets/images/hindu.png',
-
+    'assets/images/scroll1.jpg',
+    'assets/images/scroll2.jpg',
+    'assets/images/scroll3.jpg'
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white60,
       extendBody: true,
       body: ListView(children: [
         Stack(children: [
@@ -73,8 +74,8 @@ class _MainScreenState extends State<MainScreen> {
             top: 10,
             left: 7,
             child: IconButton(
-              icon:
-                  const Icon(Icons.grid_view_outlined, size: 25, color: Colors.black),
+              icon: const Icon(Icons.grid_view_outlined,
+                  size: 25, color: Colors.black),
               onPressed: () {
                 if (ZoomDrawer.of(context)!.isOpen()) {
                   ZoomDrawer.of(context)!.close();
@@ -87,36 +88,37 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Column(
             children: [
-              const Center(
-                  child: Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Text('Find Your',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 38,
-                        color: Colors.black)),
-              )),
-              const Center(
-                  child: Text('Wedding Party',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 32,
-                          color: Colors.black))),
+              Padding(
+                padding: EdgeInsets.only(top: 20, left: 100),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Center(
+                        child: Text('Bridge Events',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 34,
+                                color: Colors.black)),
+                      ),
+                    ]),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: CarouselSlider(
                   options: CarouselOptions(
-                    height: 200,
+                    height: 220,
                     enableInfiniteScroll: true,
                     autoPlay: true,
                     autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 800),
                     pauseAutoPlayOnTouch: true,
                     enlargeCenterPage: true,
+                    padEnds: true,
                     aspectRatio: 3.0,
                     onPageChanged: (index, reason) {
                       setState(() {
-                        currentindex =index;
+                        currentindex = index;
                       });
                     },
                   ),
@@ -127,135 +129,611 @@ class _MainScreenState extends State<MainScreen> {
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
                           items,
-                          fit: BoxFit.cover,
-                          width: 1000.0,
+                          fit: BoxFit.fill,
+                          width: 1200.0,
                         ),
                       ),
                     );
                   }).toList(),
                 ),
               ),
-
+              const Padding(
+                padding: EdgeInsets.only(top: 30),
+                child: Text("Find Your",
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500)),
+              ),
+              const Text("Wdding Party",
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700)),
               Padding(
-                  padding: const EdgeInsets.only(top: 80,),
-                  child: Center(
-                    child: Column(
+                  padding: const EdgeInsets.only(top: 40, left: 15, right: 15),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SizedBox(
-                          width: 260,
-                          height: 50,
-                          child: ListTile(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            tileColor: Colors.black12,
-                            title: const Center(
-                              child: Text("Hindu Wedding",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.w500)),
-                            ),
-                            onTap: () {
-                              setState(() {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  return const HinduPage1();
-                                },));
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return HinduPage1();
+                                },
+                              ));
+                            });
+                          },
                           child: SizedBox(
-                            width: 260,
-                            height: 50,
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              tileColor: Colors.black12,
-                              title: Center(
-                                child: Text("Muslim Wedding",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.w500)),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                    return const HinduPage1();
-                                  },));
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: SizedBox(
-                            width: 260,
-                            height: 50,
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              tileColor: Colors.black12,
-                              title: Center(
-                                child: Text("christian Wedding",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.w500)),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                    return const HinduPage1();
-                                  },));
-                                });
-                              },
+                            width: 183,
+                            height: 300,
+                            child: Stack(
+                              children: [
+                                // Image
+                                Card(
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: const Image(
+                                      image: AssetImage(
+                                          'assets/images/traditional.jpg'),
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                    ),
+                                  ),
+                                ),
+
+                                // Text
+                                const Positioned(
+                                  right: 38,
+                                  left: 38,
+                                  bottom: 25,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Traditional",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Wedding",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return HinduPage1();
+                                },
+                              ));
+                            });
+                          },
                           child: SizedBox(
-                            width: 260,
-                            height: 50,
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              tileColor: Colors.black12,
-                              title: Center(
-                                child: Text("Inter Cast Wedding",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.w500)),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                    return const HinduPage1();
-                                  },));
-                                });
-                              },
+                            width: 183,
+                            height: 300,
+                            child: Stack(
+                              children: [
+                                // Image
+                                Card(
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image(
+                                      image: AssetImage(
+                                          'assets/images/vintage2.jpeg'),
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                    ),
+                                  ),
+                                ),
+
+                                // Text
+                                const Positioned(
+                                  right: 38,
+                                  left: 38,
+                                  bottom: 25,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Vintage",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Style",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ],
                     ),
                   )),
+              Padding(
+                  padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return HinduPage1();
+                                },
+                              ));
+                            });
+                          },
+                          child: SizedBox(
+                            width: 183,
+                            height: 300,
+                            child: Stack(
+                              children: [
+                                // Image
+                                Card(
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image(
+                                      image: AssetImage(
+                                          'assets/images/beach2.jpeg'),
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                    ),
+                                  ),
+                                ),
+
+                                // Text
+                                Positioned(
+                                  right: 38,
+                                  left: 38,
+                                  bottom: 25,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "On the ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        "beach",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 24,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return HinduPage1();
+                                },
+                              ));
+                            });
+                          },
+                          child: SizedBox(
+                            width: 183,
+                            height: 300,
+                            child: Stack(
+                              children: [
+                                // Image
+                                Card(
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: const Image(
+                                      image: AssetImage(
+                                          'assets/images/rustic.jpeg'),
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                    ),
+                                  ),
+                                ),
+
+                                // Text
+                                const Positioned(
+                                  right: 38,
+                                  left: 38,
+                                  bottom: 25,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Rustic",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Wedding",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              Padding(
+                  padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return HinduPage1();
+                                },
+                              ));
+                            });
+                          },
+                          child: SizedBox(
+                            width: 183,
+                            height: 300,
+                            child: Stack(
+                              children: [
+                                // Image
+                                Card(
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: const Image(
+                                      image:
+                                          AssetImage('assets/images/diy.jpeg'),
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                    ),
+                                  ),
+                                ),
+
+                                // Text
+                                const Positioned(
+                                  right: 38,
+                                  left: 38,
+                                  bottom: 25,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "DIY ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        "wedding",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 24,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return HinduPage1();
+                                },
+                              ));
+                            });
+                          },
+                          child: SizedBox(
+                            width: 183,
+                            height: 300,
+                            child: Stack(
+                              children: [
+                                // Image
+                                Card(
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: const Image(
+                                      image: AssetImage(
+                                          'assets/images/bohemian.jpeg'),
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                    ),
+                                  ),
+                                ),
+
+                                // Text
+                                const Positioned(
+                                  right: 38,
+                                  left: 38,
+                                  bottom: 25,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Bohemian ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        "romance",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              Padding(
+                  padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return HinduPage1();
+                                },
+                              ));
+                            });
+                          },
+                          child: SizedBox(
+                            width: 183,
+                            height: 300,
+                            child: Stack(
+                              children: [
+                                // Image
+                                Card(
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: const Image(
+                                      image: AssetImage(
+                                          'assets/images/inspired.jpeg'),
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                    ),
+                                  ),
+                                ),
+
+                                // Text
+                                const Positioned(
+                                  right: 38,
+                                  left: 38,
+                                  bottom: 25,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Industrial ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        "inspired",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 24,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return HinduPage1();
+                                },
+                              ));
+                            });
+                          },
+                          child: SizedBox(
+                            width: 183,
+                            height: 300,
+                            child: Stack(
+                              children: [
+                                // Image
+                                Card(
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: const Image(
+                                      image: AssetImage(
+                                          'assets/images/outdor.jpeg'),
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                    ),
+                                  ),
+                                ),
+
+                                // Text
+                                const Positioned(
+                                  right: 38,
+                                  left: 38,
+                                  bottom: 25,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Garden or  ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        " outdoors",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              Center(child: Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Text("Follow Me...!",style: TextStyle(fontSize: 26,fontWeight: FontWeight.w500),),
+              )),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: SizedBox(
+                  width: 180,
+                  height: 180,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                          20,
+                        ),
+                        child: Image(
+                          image: AssetImage('assets/images/instaQR1.jpg'),
+                          fit: BoxFit.fill,
+                        )),
+                  ),
+                ),
+              ),
+
+
+
+
+
             ],
           ),
         ]),
       ]),
       bottomNavigationBar: DotNavigationBar(
         currentIndex: SelectedTab.values.indexOf(_selectedTab),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white70,
         splashColor: Colors.white10,
         selectedItemColor: Colors.black,
         dotIndicatorColor: Colors.pink,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Colors.black,
         onTap: _handleIndexChanged,
         items: [
           DotNavigationBarItem(
@@ -364,7 +842,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       setState(() {
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
-                            return Profile();
+                            return const Profile();
                           },
                         ));
                       });
