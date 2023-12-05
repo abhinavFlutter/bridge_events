@@ -1,3 +1,4 @@
+import 'package:bridge_events/screen/profile.dart';
 import 'package:flutter/material.dart';
 
 class SettingPage extends StatefulWidget {
@@ -43,14 +44,17 @@ class _SettingPageState extends State<SettingPage> {
           child: ListTile(
               // shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
               // tileColor: Color.fromARGB(80, 80, 80, 80),
-              leading: Icon(
-                Icons.person_add_alt,
-                color: Colors.black,
-              ),
-              title: Text(
-                "Accounts",
-                style: TextStyle(
-                  color: Colors.black,
+              // leading: Icon(
+              //   Icons.person_add_alt,
+              //   color: Colors.black,
+              // ),
+              title: Padding(
+                padding: EdgeInsets.only(left: 30),
+                child: Text(
+                  "Accounts",
+                  style: TextStyle(
+                    color: Colors.black,fontWeight: FontWeight.w700,fontSize: 20
+                  ),
                 ),
               )),
         ),
@@ -62,7 +66,13 @@ class _SettingPageState extends State<SettingPage> {
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20))),
             tileColor: const Color.fromARGB(80, 80, 80, 80),
-            onTap: () {},
+            onTap: () {
+              setState(() {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Profile();
+                },));
+              });
+            },
             leading: const Icon(
               Icons.edit,
               size: 17,
@@ -105,11 +115,14 @@ class _SettingPageState extends State<SettingPage> {
         const Padding(
           padding: EdgeInsets.only(right: 10, left: 10, top: 7),
           child: ListTile(
-              leading: Icon(
-                Icons.privacy_tip,
-                color: Colors.black,
-              ),
-              title: Text("Notification")),
+              // leading: Icon(
+              //   Icons.privacy_tip,
+              //   color: Colors.black,
+              // ),
+              title: Padding(
+                padding: EdgeInsets.only(left: 30),
+                child: Text("Notification",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 20),),
+              )),
         ),
         Padding(
           padding: const EdgeInsets.only(right: 40, left: 40, top: 7),
@@ -169,7 +182,7 @@ class _SettingPageState extends State<SettingPage> {
               )),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 40, left: 40, top: 20),
+          padding: const EdgeInsets.only(right: 40, left: 40, top: 40),
           child: ListTile(
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -199,7 +212,7 @@ class _SettingPageState extends State<SettingPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 40, left: 40, top: 20),
+          padding: const EdgeInsets.only(right: 40, left: 40, top: 40),
           child: ListTile(
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -234,7 +247,7 @@ class _SettingPageState extends State<SettingPage> {
         ),
         Padding(
           padding:
-              const EdgeInsets.only(top: 20, right: 40, left: 40, bottom: 20),
+              const EdgeInsets.only(top: 40, right: 40, left: 40,),
           child: ListTile(
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20))),

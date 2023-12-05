@@ -52,7 +52,7 @@ class _Splashscreen1State extends State<Splashscreen1> {
               padding: EdgeInsets.only(top: 90,left: 10,right: 10),
               child: Center(
                 child: Padding(
-                  padding: EdgeInsets.only(top: 22),
+                  padding: EdgeInsets.only(top: 32),
                   child: Column(
                     children: [
                       Text(

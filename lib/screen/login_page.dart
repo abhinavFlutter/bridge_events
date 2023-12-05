@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
 
 import 'forgot_password.dart';
+import 'home_page.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -32,29 +33,32 @@ class _BridgeState extends State<Login> {
                       padding: EdgeInsets.all(10.0),
                       child: Text("Bridge Events",
                           style: TextStyle(
-                              fontSize: 28, fontWeight: FontWeight.w900)),
+                              fontSize: 40, fontWeight: FontWeight.w900)),
                     )),
                     const Center(
                         child: Image(
                       image: AssetImage(
-                          'assets/images/transparent-wedding-couple-silhouette-651a2e42012dc1.9005915916962145940048.png'),
+                          'assets/images/loginorg.png'),
                       // height: 400,
                       // width: 400,
                     )),
                     const Center(
-                        child: Text(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text(
                       'welcome Back!',
                       style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    )),
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                    ),
+                        )),
                     const Center(
                         child: Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.only(top: 15),
                       child: Text(
                           "welcome back to the best. we're\n always here, waiting for you!",
-                          style: TextStyle(wordSpacing: 3, letterSpacing: 2),
+                          style: TextStyle(wordSpacing: 2,fontSize: 16),
                           textAlign: TextAlign.center),
                     )),
                     Padding(
@@ -93,12 +97,12 @@ class _BridgeState extends State<Login> {
                       padding:
                           const EdgeInsets.only(right: 50, left: 50, top: 25),
                       child: TextFormField(
-                          // maxLength: 8,obscureText: true,obscuringCharacter: "*",
+                          maxLength: 12,
                           decoration:  InputDecoration(
-                              focusedBorder: OutlineInputBorder(
+                              focusedBorder: const OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15))),
-                              enabledBorder: OutlineInputBorder(
+                              enabledBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.white38),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15))),
@@ -168,6 +172,11 @@ class _BridgeState extends State<Login> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                             content: Text("success")));
+                                    setState(() {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                        return DrawerScreen();
+                                      },));
+                                    });
                                   }
                                 },
                                 child: const Text(

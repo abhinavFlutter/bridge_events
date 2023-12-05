@@ -19,9 +19,10 @@ class _ForgotPassState extends State<ForgotPass> {
           key: loginKey,
           child: ListView(
             children: [
+              const Image(image: AssetImage('assets/images/Screenshot 2023-11-30 213928.png')),
               const Center(
                   child: Padding(
-                padding: EdgeInsets.only(top: 220),
+                padding: EdgeInsets.only(top: 40),
                 child: Text("Forgot Your Password?",
                     style:
                         TextStyle(fontSize: 28, fontWeight: FontWeight.w700,color: Colors.red)),
