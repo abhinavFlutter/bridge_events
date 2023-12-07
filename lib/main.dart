@@ -1,15 +1,11 @@
-import 'package:bridge_events/screen/calenderPriceRange/calender_price.dart';
-import 'package:bridge_events/screen/forgot_password.dart';
+
+import 'package:bridge_events/screen/calenderPriceRange/booking.dart';
 import 'package:bridge_events/screen/hindu_wedding/hindu_page1.dart';
 import 'package:bridge_events/screen/home_page.dart';
-
 import 'package:bridge_events/screen/login_page.dart';
-import 'package:bridge_events/screen/opening_page.dart';
 import 'package:bridge_events/screen/profile.dart';
-import 'package:bridge_events/screen/registration_page.dart';
-import 'package:bridge_events/screen/responsive_screen/responsive_screen.dart';
-import 'package:bridge_events/screen/settings_page.dart';
 import 'package:bridge_events/screen/splash_screen.dart';
+import 'package:bridge_events/screen/trash/profileDemo.dart';
 
 import 'package:bridge_events/screen/trash1.dart';
 import 'package:flutter/material.dart';
