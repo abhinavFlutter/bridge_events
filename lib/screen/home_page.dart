@@ -845,39 +845,43 @@ class _MainScreenState extends State<MainScreen> {
                   ]),
                 ]),
                 bottomNavigationBar:
-                DotNavigationBar(
-                  currentIndex: SelectedTab.values.indexOf(_selectedTab),
-                  backgroundColor: Colors.black54,
-                  splashColor: Colors.white10,
-                  selectedItemColor: Colors.white,
-                  dotIndicatorColor: Colors.pink,
-                  unselectedItemColor: Colors.white,
-                  onTap: _handleIndexChanged,
-                  items: [
-                    DotNavigationBarItem(
-                      icon: const Icon(Icons.home),
-                    ),
-                    DotNavigationBarItem(
-                        icon: const Icon(Icons.calendar_month_outlined)),
-                    DotNavigationBarItem(
-                        icon: const Icon(Icons.currency_rupee_rounded)),
-                    DotNavigationBarItem(
-                      icon: InkWell(
-                        child: const Icon(
-                          Icons.person,
+                BackdropFilter(filter: ImageFilter.blur(sigmaY: 5,sigmaX: 5),
+                  child: SizedBox(width: 300,height: 80,
+                    child: DotNavigationBar(
+                      currentIndex: SelectedTab.values.indexOf(_selectedTab),
+                      backgroundColor: Colors.black54,
+                      splashColor: Colors.white10,
+                      selectedItemColor: Colors.white,
+                      dotIndicatorColor: Colors.pink,
+                      unselectedItemColor: Colors.white,
+                      onTap: _handleIndexChanged,
+                      items: [
+                        DotNavigationBarItem(
+                          icon: const Icon(Icons.home),
                         ),
-                        onTap: () {
-                          setState(() {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return const Profile();
-                              },
-                            ));
-                          });
-                        },
-                      ),
+                        DotNavigationBarItem(
+                            icon: const Icon(Icons.calendar_month_outlined)),
+                        DotNavigationBarItem(
+                            icon: const Icon(Icons.currency_rupee_rounded)),
+                        DotNavigationBarItem(
+                          icon: InkWell(
+                            child: const Icon(
+                              Icons.person,
+                            ),
+                            onTap: () {
+                              setState(() {
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return const Profile();
+                                  },
+                                ));
+                              });
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 )
 
 

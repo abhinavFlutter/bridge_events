@@ -67,9 +67,9 @@ class _ProfileState extends State<Profile> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          right: 50, left: 50, top: 27),
+                                          right: 0, left: 0, top: 27),
                                       child: SizedBox(
-                                        height: 40,
+                                        height: 40,width: 250,
                                         child: TextFormField(
                                           decoration: const InputDecoration(
                                             focusedBorder: OutlineInputBorder(
@@ -103,9 +103,9 @@ class _ProfileState extends State<Profile> {
                                     ),
                                     const Padding(
                                       padding:
-                                      EdgeInsets.only(right: 50, left: 50, top: 15),
+                                      EdgeInsets.only(right: 0, left: 0, top: 15),
                                       child: SizedBox(
-                                        height: 60,
+                                        height: 60,width: 250,
                                         child: IntlPhoneField(
                                           decoration: InputDecoration(
                                             focusedBorder: OutlineInputBorder(
@@ -131,9 +131,9 @@ class _ProfileState extends State<Profile> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          right: 50, left: 50, top: 15),
+                                          right: 0, left: 0, top: 09),
                                       child: SizedBox(
-                                        height: 40,
+                                        height: 40,width: 250,
                                         child: TextFormField(
                                           keyboardType: TextInputType.emailAddress,
                                           decoration: const InputDecoration(
@@ -170,9 +170,9 @@ class _ProfileState extends State<Profile> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          right: 50, left: 50, top: 15),
+                                          right: 0, left: 0, top: 15),
                                       child: SizedBox(
-                                        height: 40,
+                                        height: 40,width: 250,
                                         child: TextFormField(
                                           obscureText: true,
                                           obscuringCharacter: "*",

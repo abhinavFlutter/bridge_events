@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bridge_events/screen/registration_page.dart';
+import 'package:bridge_events/screen/trash/cust_btn.dart';
+import 'package:bridge_events/screen/trash/demo/h2.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
@@ -32,7 +34,7 @@ class _BridgeState extends State<Login> {
               child: Container(
                 decoration: const BoxDecoration(color: Colors.white),
                 child: FutureBuilder(
-                  future: Future.delayed(Duration(seconds: 3)), // Add delay here
+                  future: Future.delayed(Duration(seconds: 1)), // Add delay here
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       // Return the shimmer effect while waiting
@@ -341,6 +343,9 @@ class _BridgeState extends State<Login> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            // IconButtonWidget(buttonText: "Hello btn", iconData: Icons.add, onPressed: () {
+                            //
+                            // }, trailingIcon: Icons.wifi),
                             TextButton(
                                 onPressed: () {
                                   setState(() {

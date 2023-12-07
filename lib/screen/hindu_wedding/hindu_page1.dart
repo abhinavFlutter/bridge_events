@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../calenderPriceRange/booking.dart';
+import '../bookingPage/booking.dart';
+
+
 
 class HinduPage1 extends StatefulWidget {
   const HinduPage1({super.key});
