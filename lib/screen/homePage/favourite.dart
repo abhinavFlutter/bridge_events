@@ -11,7 +11,7 @@ class _FavouriteState extends State<Favourite> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("Favourite"),
+        child: Text("Favourite",style: TextStyle(color: Colors.black,fontSize: 40)),
       ),
     );
   }

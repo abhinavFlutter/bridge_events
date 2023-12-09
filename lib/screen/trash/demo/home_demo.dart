@@ -1,356 +1,579 @@
-// // import 'package:bridge_events/screen/profile.dart';
-// // import 'package:bridge_events/screen/settings_page.dart';
-// // import 'package:dot_navigation_bar/dot_navigation_bar.dart';
-// // import 'package:flutter/material.dart';
-// // import 'package:flutter_screenutil/flutter_screenutil.dart';
-// // import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-// //
-// // class DrawerScreen extends StatefulWidget {
-// //   const DrawerScreen({super.key});
-// //
-// //   @override
-// //   State<DrawerScreen> createState() => _DrawerScreenState();
-// // }
-// //
-// // class _DrawerScreenState extends State<DrawerScreen> {
-// //   final zoomDrawerController = ZoomDrawerController();
-// //
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return ZoomDrawer(
-// //       slideWidth: MediaQuery.of(context).size.width * 0.5,
-// //       showShadow: true,
-// //       shadowLayer1Color: Colors.white,
-// //       mainScreenTapClose: true,
-// //       menuScreenWidth: double.infinity,
-// //       menuBackgroundColor: Colors.black,
-// //       controller: zoomDrawerController,
-// //       menuScreen: const MenuScreen(),
-// //       mainScreen: const MainScreen(),
-// //       style: DrawerStyle.style4,
-// //       borderRadius: 50,
-// //       angle: -18,
-// //       openCurve: Curves.fastOutSlowIn,
-// //       closeCurve: Curves.bounceInOut,
-// //     );
-// //   }
-// // }
-// //
-// // class MainScreen extends StatefulWidget {
-// //   const MainScreen({super.key});
-// //
-// //   @override
-// //   State<MainScreen> createState() => _MainScreenState();
-// // }
-// //
-// // class _MainScreenState extends State<MainScreen> {
-// //   var _selectedTab = SelectedTab.home;
-// //
-// //   void _handleIndexChanged(int index) {
-// //     setState(() {
-// //       _selectedTab = SelectedTab.values[index];
-// //     });
-// //   }
-// //   var photo = ['assets/images/profile1.jpg',
-// //     'assets/images/profile1.jpg',
-// //     'assets/images/profile1.jpg'];
-// //
-// //   var name=["avhhah","shhsb","jshxjsh"];
-// //
-// //
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Scaffold(
-// //       extendBody: true,
-// //       body: Stack(children: [
-// //         ListView.builder(
-// //           itemCount: photo.length,
-// //
-// //           itemBuilder: (context, index) {
-// //             return Container(
-// //               margin: const EdgeInsets.all(15),
-// //               child: Center(child: SizedBox(child:
-// //
-// //
-// //               InkWell(onTap: () {
-// //
-// //               },
-// //                   child: Card(
-// //
-// //                       child: Column(
-// //                         children: [
-// //                           Image(image: AssetImage(photo[index])),
-// //                           Text(name[index])
-// //                         ],
-// //                       ))))),
-// //             );
-// //           },
-// //         ),
-// //         Positioned(
-// //           top: 40,
-// //           left: 7,
-// //           child: IconButton(
-// //             icon: Icon(Icons.grid_view_outlined, size: 30),
-// //             onPressed: () {
-// //               if (ZoomDrawer.of(context)!.isOpen()) {
-// //                 ZoomDrawer.of(context)!.close();
-// //               } else {
-// //                 ZoomDrawer.of(context)!.open();
-// //               }
-// //               // Handle menu button tap
-// //             },
-// //           ),
-// //         ),
-// //       ]),
-// //       bottomNavigationBar: DotNavigationBar(
-// //         currentIndex: SelectedTab.values.indexOf(_selectedTab),
-// //         backgroundColor: Colors.white,
-// //         splashColor: Colors.white10,
-// //         selectedItemColor: Colors.black,
-// //         dotIndicatorColor: Colors.pink,
-// //         unselectedItemColor: Colors.grey,
-// //         onTap: _handleIndexChanged,
-// //         items: [
-// //           DotNavigationBarItem(
-// //             icon: const Icon(Icons.home),
-// //           ),
-// //           DotNavigationBarItem(icon: const Icon(Icons.calendar_month_outlined)),
-// //           DotNavigationBarItem(icon: const Icon(Icons.currency_rupee_rounded)),
-// //           DotNavigationBarItem(
-// //             icon: InkWell(
-// //               child: const Icon(
-// //                 Icons.person,
-// //               ),
-// //               onTap: () {
-// //                 setState(() {
-// //                   Navigator.push(context, MaterialPageRoute(
-// //                     builder: (context) {
-// //                       return const Profile();
-// //                     },
-// //                   ));
-// //                 });
-// //               },
-// //             ),
-// //           ),
-// //         ],
-// //       ),
-// //     );
-// //   }
-// // }
-// //
-// // enum SelectedTab {
-// //   home,
-// //   calendar_month_outlined,
-// //   currency_rupee_rounded,
-// //   person
-// // }
-// //
-// // class MenuScreen extends StatefulWidget {
-// //   const MenuScreen({super.key});
-// //
-// //   @override
-// //   State<MenuScreen> createState() => _MenuScreenState();
-// // }
-// //
-// // class _MenuScreenState extends State<MenuScreen> {
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Scaffold(
-// //       backgroundColor: Colors.black,
-// //       body: SingleChildScrollView(
-// //         child: Stack(children: [
-// //           const Positioned(
-// //             top: 100,
-// //             left: 70,
-// //             child: Stack(children: [
-// //               CircleAvatar(
-// //                 radius: 60,
-// //                 backgroundColor: Colors.white54,
-// //                 child: CircleAvatar(
-// //                   radius: 55,
-// //                   backgroundImage: AssetImage(
-// //                     'assets/images/profile1.jpg',
-// //                   ),
-// //                 ),
-// //               ),
-// //             ]),
-// //           ),
-// //           Column(
-// //             children: [
-// //               Padding(
-// //                 padding: const EdgeInsets.only(top: 350, left: 50),
-// //                 child: SizedBox(
-// //                   width: 270,
-// //                   height: 60,
-// //                   child: ListTile(
-// //                     onTap: () {
-// //                       setState(() {
-// //                         Navigator.push(context, MaterialPageRoute(
-// //                           builder: (context) {
-// //                             return const DrawerScreen();
-// //                           },
-// //                         ));
-// //                       });
-// //                     },
-// //                     shape: RoundedRectangleBorder(
-// //                         borderRadius: BorderRadius.circular(20)),
-// //                     trailing: const Padding(
-// //                       padding: EdgeInsets.only(right: 85),
-// //                       child: Icon(Icons.home_outlined,
-// //                           size: 20, color: Colors.white),
-// //                     ),
-// //                     title: const Text("Home",
-// //                         style: TextStyle(
-// //                             color: Colors.white,
-// //                             fontSize: 16,
-// //                             fontWeight: FontWeight.w700)),
-// //                   ),
-// //                 ),
-// //               ),
-// //               Padding(
-// //                 padding: const EdgeInsets.only(top: 8, left: 50),
-// //                 child: SizedBox(
-// //                   width: 270,
-// //                   height: 60,
-// //                   child: ListTile(
-// //                     onTap: () {
-// //                       setState(() {
-// //                         Navigator.push(context, MaterialPageRoute(
-// //                           builder: (context) {
-// //                             return Profile();
-// //                           },
-// //                         ));
-// //                       });
-// //                     },
-// //                     shape: RoundedRectangleBorder(
-// //                         borderRadius: BorderRadius.circular(20)),
-// //                     trailing: const Padding(
-// //                       padding: EdgeInsets.only(right: 85),
-// //                       child: Icon(Icons.account_circle_outlined,
-// //                           size: 18, color: Colors.white),
-// //                     ),
-// //                     title: const Text(
-// //                       "Profile",
-// //                       style: TextStyle(
-// //                           color: Colors.white,
-// //                           fontSize: 16,
-// //                           fontWeight: FontWeight.w700),
-// //                     ),
-// //                   ),
-// //                 ),
-// //               ),
-// //               Padding(
-// //                 padding: const EdgeInsets.only(top: 8, left: 50),
-// //                 child: SizedBox(
-// //                   width: 270,
-// //                   height: 60,
-// //                   child: ListTile(
-// //                     onTap: () {
-// //                       setState(() {
-// //                         Navigator.push(context, MaterialPageRoute(
-// //                           builder: (context) {
-// //                             return const SettingPage();
-// //                           },
-// //                         ));
-// //                       });
-// //                     },
-// //                     shape: RoundedRectangleBorder(
-// //                         borderRadius: BorderRadius.circular(20)),
-// //                     trailing: const Padding(
-// //                       padding: EdgeInsets.only(right: 85),
-// //                       child:
-// //                       Icon(Icons.settings, size: 20, color: Colors.white),
-// //                     ),
-// //                     title: const Text("Settings",
-// //                         style: TextStyle(
-// //                             color: Colors.white,
-// //                             fontSize: 16,
-// //                             fontWeight: FontWeight.w700)),
-// //                   ),
-// //                 ),
-// //               ),
-// //               Padding(
-// //                 padding: const EdgeInsets.only(top: 8, left: 50),
-// //                 child: SizedBox(
-// //                   width: 270,
-// //                   height: 60,
-// //                   child: ListTile(
-// //                     onTap: () {},
-// //                     shape: RoundedRectangleBorder(
-// //                         borderRadius: BorderRadius.circular(20)),
-// //                     trailing: const Padding(
-// //                       padding: EdgeInsets.only(right: 85),
-// //                       child: Icon(Icons.rate_review_outlined,
-// //                           size: 20, color: Colors.white),
-// //                     ),
-// //                     title: const Text("Rating",
-// //                         style: TextStyle(
-// //                             color: Colors.white,
-// //                             fontSize: 16,
-// //                             fontWeight: FontWeight.w700)),
-// //                   ),
-// //                 ),
-// //               ),
-// //               Padding(
-// //                 padding: const EdgeInsets.only(top: 8, left: 50),
-// //                 child: SizedBox(
-// //                   width: 270,
-// //                   height: 60,
-// //                   child: ListTile(
-// //                     onTap: () {},
-// //                     shape: RoundedRectangleBorder(
-// //                         borderRadius: BorderRadius.circular(20)),
-// //                     trailing: const Padding(
-// //                       padding: EdgeInsets.only(right: 85),
-// //                       child: Icon(Icons.logout, size: 20, color: Colors.white),
-// //                     ),
-// //                     title: const Text("Logout",
-// //                         style: TextStyle(
-// //                             color: Colors.white,
-// //                             fontSize: 16,
-// //                             fontWeight: FontWeight.w700)),
-// //                   ),
-// //                 ),
-// //               ),
-// //             ],
-// //           )
-// //         ]),
-// //       ),
-// //     );
-// //   }
-// // }
-// import 'dart:ui';
 //
 // import 'package:flutter/material.dart';
 //
-// void main() {
-//   runApp(MyApp());
+// import '../bookingPage/booking.dart';
+//
+//
+//
+// class HinduPage1 extends StatefulWidget {
+//   const HinduPage1({super.key});
+//
+//   @override
+//   State<HinduPage1> createState() => _HinduPage1State();
 // }
 //
-// class MyApp extends StatelessWidget {
+// class _HinduPage1State extends State<HinduPage1> {
+//   List images = [
+//     'assets/images/img8.jpeg',
+//     'assets/images/img9.jpeg',
+//     'assets/images/wd4.jpg',
+//     'assets/images/wd3.jpg',
+//   ];
+//   int selectedImageIndex = 0;
+//
+//   List images1 = [
+//     'assets/images/img6.png',
+//     'assets/images/img7.png',
+//     'assets/images/img3.jpeg',
+//     'assets/images/img5.jpeg',
+//   ];
+//   int selectedImageIndex1 = 0;
+//
 //   @override
 //   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(backgroundColor: Colors.red,
-//         appBar: AppBar(
-//           title: Text('Blur Widget Example'),
-//         ),
-//         body: Center(
-//           child: Container(
-//             width: 330,
-//             height: 300,
-//             decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(15),
-//               // Add a color filter to create a blur effect
-//               color: Colors.white.withOpacity(0.5), // Adjust opacity as needed
-//             ),
-//             child: BackdropFilter(
-//               filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0), // Adjust sigmaX and sigmaY for the blur intensity
+//     Size size = MediaQuery.of(context).size;
 //
-//             ),
+//     return Scaffold(
+//         backgroundColor: Colors.white,
+//         body: SizedBox(
+//           width: MediaQuery.of(context).size.width,
+//           height: MediaQuery.of(context).size.height,
+//           child: ListView(
+//             children: [
+//               Column(
+//                 children: [
+//                   Center(
+//                     child: Padding(
+//                       padding: const EdgeInsets.only(top: 10),
+//                       child: SizedBox(
+//                         width: 360,
+//                         height: 330,
+//                         child: ClipRRect(
+//                             borderRadius: BorderRadius.circular(20),
+//                             child: Image(
+//                               image: AssetImage(images[selectedImageIndex]),
+//                               fit: BoxFit.fill,
+//                             )),
+//                       ),
+//                     ),
+//                   ),
+//                   SizedBox(
+//                     width: 360,
+//                     height: 390,
+//                     child: SingleChildScrollView(
+//                       child: Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           const Padding(
+//                             padding: EdgeInsets.only(top: 10, left: 20),
+//                             child: Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               children: [
+//                                 Stack(children: [
+//                                   Text("Description",
+//                                       style: TextStyle(
+//                                         fontWeight: FontWeight.w600,
+//                                         fontSize: 25,
+//                                       )),
+//                                   Padding(
+//                                     padding: EdgeInsets.only(left: 220),
+//                                     child: Icon(Icons.currency_rupee_sharp),
+//                                   ),
+//                                   Padding(
+//                                     padding: EdgeInsets.only(left: 240),
+//                                     child: Text(
+//                                       "1,20,000",
+//                                       style: TextStyle(
+//                                           fontSize: 20,
+//                                           fontWeight: FontWeight.w500),
+//                                     ),
+//                                   )
+//                                 ]),
+//                               ],
+//                             ),
+//                           ),
+//                           SizedBox(
+//                             height: 105,
+//                             width: 415,
+//                             child: Card(
+//                               color: Colors.white54,
+//                               shape: RoundedRectangleBorder(
+//                                   borderRadius: BorderRadius.circular(15)),
+//                               child: const Center(
+//                                 child: Text(
+//                                     "Though it’s the most important part of \na wedding day, "
+//                                         "the ceremony is the space\nwhere your guests"
+//                                         "will spend the least amount\nof time so this is not "
+//                                         "the place to blow your budget.",
+//                                     style: TextStyle(
+//                                         fontSize: 15, color: Colors.black)),
+//                               ),
+//                             ),
+//                           ),
+//                           Padding(
+//                               padding: EdgeInsets.only(top: 8, left: 10),
+//                               child: Stack(children: [
+//                                 const Text(
+//                                   "A tent for an outdoor wedding\n"
+//                                       "Lighting\n"
+//                                       "Draping\n"
+//                                       "Dance floor\n"
+//                                       "Hanging decor or installations such as chandeliers\n"
+//                                       "Wedding hashtag signage\n"
+//                                       "Bar decor\n"
+//                                       "Dinner menus \n"
+//                                       "Chair decor for the marrying couple\n"
+//                                       "Lounge area\n",
+//                                   style: TextStyle(
+//                                       fontSize: 14,
+//                                       color: Colors.black54,
+//                                       fontWeight: FontWeight.w400),
+//                                 ),
+//                                 Padding(
+//                                   padding: const EdgeInsets.only(
+//                                       top: 170, right: 20),
+//                                   child: Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         InkWell(
+//                                           onTap: () {},
+//                                           child: SizedBox(
+//                                             width: 160,
+//                                             height: 60,
+//                                             child: Card(
+//                                               shape: RoundedRectangleBorder(
+//                                                   borderRadius:
+//                                                   BorderRadius.circular(
+//                                                       15)),
+//                                               color: Colors.black12,
+//                                               elevation: 30,
+//                                               child: const Center(
+//                                                   child: Text("Call Now",
+//                                                       style: TextStyle(
+//                                                           fontSize: 22,
+//                                                           color: Colors.black,
+//                                                           fontWeight: FontWeight
+//                                                               .w500))),
+//                                             ),
+//                                           ),
+//                                         ),
+//                                         InkWell(
+//                                           onTap: () {
+//                                             setState(() {
+//                                               Navigator.push(context,
+//                                                   MaterialPageRoute(
+//                                                     builder: (context) {
+//                                                       return Booking();
+//                                                     },
+//                                                   ));
+//                                             });
+//                                           },
+//                                           child: SizedBox(
+//                                             width: 160,
+//                                             height: 60,
+//                                             child: Card(
+//                                               shape: RoundedRectangleBorder(
+//                                                   borderRadius:
+//                                                   BorderRadius.circular(
+//                                                       15)),
+//                                               color: Colors.black12,
+//                                               elevation: 30,
+//                                               child: const Center(
+//                                                   child: Text("Book Now",
+//                                                       style: TextStyle(
+//                                                           fontSize: 22,
+//                                                           color: Colors.black,
+//                                                           fontWeight: FontWeight
+//                                                               .w500))),
+//                                             ),
+//                                           ),
+//                                         ),
+//                                       ]),
+//                                 ),
+//                               ]))
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   SingleChildScrollView(
+//                     scrollDirection: Axis.horizontal,
+//                     child: Padding(
+//                       padding: const EdgeInsets.only(bottom: 30, left: 10),
+//                       child: Padding(
+//                         padding: const EdgeInsets.only(top: 15),
+//                         child: Row(
+//                           children: [
+//                             InkWell(
+//                               onTap: () {
+//                                 setState(() {
+//                                   selectedImageIndex = 0;
+//                                 });
+//                               },
+//                               child: Padding(
+//                                 padding: const EdgeInsets.only(right: 10),
+//                                 child: SizedBox(
+//                                   height: 80,
+//                                   width: 80,
+//                                   child: Card(
+//                                     shape: RoundedRectangleBorder(
+//                                         borderRadius:
+//                                         BorderRadius.circular(20)),
+//                                     child: ClipRRect(
+//                                         borderRadius: BorderRadius.circular(20),
+//                                         child: Image(
+//                                             image: AssetImage(images[0]),
+//                                             fit: BoxFit.fill)),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                             InkWell(
+//                               onTap: () {
+//                                 setState(() {
+//                                   selectedImageIndex = 1;
+//                                 });
+//                               },
+//                               child: Padding(
+//                                 padding: const EdgeInsets.only(right: 10),
+//                                 child: SizedBox(
+//                                   height: 80,
+//                                   width: 80,
+//                                   child: Card(
+//                                     shape: RoundedRectangleBorder(
+//                                         borderRadius:
+//                                         BorderRadius.circular(20)),
+//                                     child: ClipRRect(
+//                                         borderRadius: BorderRadius.circular(20),
+//                                         child: Image(
+//                                           image: AssetImage(images[1]),
+//                                           fit: BoxFit.fill,
+//                                         )),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                             InkWell(
+//                               onTap: () {
+//                                 setState(() {
+//                                   selectedImageIndex = 2;
+//                                 });
+//                               },
+//                               child: Padding(
+//                                 padding: const EdgeInsets.only(right: 10),
+//                                 child: SizedBox(
+//                                   height: 80,
+//                                   width: 80,
+//                                   child: Card(
+//                                     shape: RoundedRectangleBorder(
+//                                         borderRadius:
+//                                         BorderRadius.circular(20)),
+//                                     child: ClipRRect(
+//                                       borderRadius: BorderRadius.circular(20.0),
+//                                       child: Image(
+//                                           image: AssetImage(images[2]),
+//                                           fit: BoxFit.cover),
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                             InkWell(
+//                               onTap: () {
+//                                 setState(() {
+//                                   selectedImageIndex = 3;
+//                                 });
+//                               },
+//                               child: Padding(
+//                                 padding: const EdgeInsets.only(right: 10),
+//                                 child: SizedBox(
+//                                   height: 80,
+//                                   width: 80,
+//                                   child: Card(
+//                                     shape: RoundedRectangleBorder(
+//                                         borderRadius:
+//                                         BorderRadius.circular(20)),
+//                                     child: ClipRRect(
+//                                         borderRadius: BorderRadius.circular(20),
+//                                         child: Image(
+//                                             image: AssetImage(images[3]),
+//                                             fit: BoxFit.fill)),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                   Center(
+//                     child: Padding(
+//                       padding: const EdgeInsets.only(top: 10),
+//                       child: SizedBox(
+//                         width: 360,
+//                         height: 330,
+//                         child: ClipRRect(
+//                             borderRadius: BorderRadius.circular(20),
+//                             child: Image(
+//                               image: AssetImage(images1[selectedImageIndex1]),
+//                               fit: BoxFit.fill,
+//                             )),
+//                       ),
+//                     ),
+//                   ),
+//                   SizedBox(
+//                     width: 360,
+//                     height: 390,
+//                     child: SingleChildScrollView(
+//                       child: Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           const Padding(
+//                             padding: EdgeInsets.only(top: 10, left: 20),
+//                             child: Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               children: [
+//                                 Stack(children: [
+//                                   Text("Description",
+//                                       style: TextStyle(
+//                                         fontWeight: FontWeight.w600,
+//                                         fontSize: 25,
+//                                       )),
+//                                   Padding(
+//                                     padding: EdgeInsets.only(left: 220),
+//                                     child: Icon(Icons.currency_rupee),
+//                                   ),
+//                                   Padding(
+//                                     padding: EdgeInsets.only(left: 240),
+//                                     child: Text("1,00,000",
+//                                         style: TextStyle(
+//                                             fontWeight: FontWeight.w500,
+//                                             fontSize: 20)),
+//                                   )
+//                                 ]),
+//                               ],
+//                             ),
+//                           ),
+//                           SizedBox(
+//                             height: 105,
+//                             width: 415,
+//                             child: Card(
+//                               color: Colors.white54,
+//                               shape: RoundedRectangleBorder(
+//                                   borderRadius: BorderRadius.circular(15)),
+//                               child: const Center(
+//                                 child: Text(
+//                                     "Though it’s the most important part of \na wedding day, "
+//                                         "the ceremony is the space\nwhere your guests"
+//                                         "will spend the least amount\nof time so this is not "
+//                                         "the place to blow your budget.",
+//                                     style: TextStyle(
+//                                         fontSize: 15, color: Colors.black)),
+//                               ),
+//                             ),
+//                           ),
+//                           Padding(
+//                               padding: EdgeInsets.only(top: 8, left: 10),
+//                               child: Stack(children: [
+//                                 const Text(
+//                                   "A tent for an outdoor wedding\n"
+//                                       "Lighting\n"
+//                                       "Draping\n"
+//                                       "Dance floor\n"
+//                                       "Hanging decor or installations such as chandeliers\n"
+//                                       "Wedding hashtag signage\n"
+//                                       "Bar decor\n"
+//                                       "Dinner menus \n"
+//                                       "Chair decor for the marrying couple\n"
+//                                       "Lounge area\n",
+//                                   style: TextStyle(
+//                                       fontSize: 14,
+//                                       color: Colors.black54,
+//                                       fontWeight: FontWeight.w400),
+//                                 ),
+//                                 Padding(
+//                                   padding: const EdgeInsets.only(
+//                                       top: 170, right: 20),
+//                                   child: Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         InkWell(
+//                                           onTap: () {},
+//                                           child: SizedBox(
+//                                             width: 160,
+//                                             height: 60,
+//                                             child: Card(
+//                                               shape: RoundedRectangleBorder(
+//                                                   borderRadius:
+//                                                   BorderRadius.circular(
+//                                                       15)),
+//                                               color: Colors.black12,
+//                                               elevation: 30,
+//                                               child: const Center(
+//                                                   child: Text("Call Now",
+//                                                       style: TextStyle(
+//                                                           fontSize: 22,
+//                                                           color: Colors.black,
+//                                                           fontWeight: FontWeight
+//                                                               .w500))),
+//                                             ),
+//                                           ),
+//                                         ),
+//                                         InkWell(
+//                                           onTap: () {
+//                                             setState(() {
+//                                               Navigator.push(context,
+//                                                   MaterialPageRoute(
+//                                                     builder: (context) {
+//                                                       return Booking();
+//                                                     },
+//                                                   ));
+//                                             });
+//                                           },
+//                                           child: SizedBox(
+//                                             width: 160,
+//                                             height: 60,
+//                                             child: Card(
+//                                               shape: RoundedRectangleBorder(
+//                                                   borderRadius:
+//                                                   BorderRadius.circular(
+//                                                       15)),
+//                                               color: Colors.black12,
+//                                               elevation: 30,
+//                                               child: const Center(
+//                                                   child: Text("Book Now",
+//                                                       style: TextStyle(
+//                                                           fontSize: 22,
+//                                                           color: Colors.black,
+//                                                           fontWeight: FontWeight
+//                                                               .w500))),
+//                                             ),
+//                                           ),
+//                                         ),
+//                                       ]),
+//                                 ),
+//                               ]))
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   SingleChildScrollView(
+//                     scrollDirection: Axis.horizontal,
+//                     child: Padding(
+//                       padding: const EdgeInsets.only(bottom: 30, left: 10),
+//                       child: Padding(
+//                         padding: const EdgeInsets.only(top: 15),
+//                         child: Row(
+//                           children: [
+//                             InkWell(
+//                               onTap: () {
+//                                 setState(() {
+//                                   selectedImageIndex1 = 0;
+//                                 });
+//                               },
+//                               child: Padding(
+//                                 padding: const EdgeInsets.only(right: 10),
+//                                 child: SizedBox(
+//                                   height: 80,
+//                                   width: 80,
+//                                   child: Card(
+//                                     shape: RoundedRectangleBorder(
+//                                         borderRadius:
+//                                         BorderRadius.circular(20)),
+//                                     child: ClipRRect(
+//                                         borderRadius: BorderRadius.circular(20),
+//                                         child: Image(
+//                                             image: AssetImage(images1[0]),
+//                                             fit: BoxFit.fill)),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                             InkWell(
+//                               onTap: () {
+//                                 setState(() {
+//                                   selectedImageIndex1 = 1;
+//                                 });
+//                               },
+//                               child: Padding(
+//                                 padding: const EdgeInsets.only(right: 10),
+//                                 child: SizedBox(
+//                                   height: 80,
+//                                   width: 80,
+//                                   child: Card(
+//                                     shape: RoundedRectangleBorder(
+//                                         borderRadius:
+//                                         BorderRadius.circular(20)),
+//                                     child: ClipRRect(
+//                                         borderRadius: BorderRadius.circular(20),
+//                                         child: Image(
+//                                           image: AssetImage(images1[1]),
+//                                           fit: BoxFit.fill,
+//                                         )),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                             InkWell(
+//                               onTap: () {
+//                                 setState(() {
+//                                   selectedImageIndex1 = 2;
+//                                 });
+//                               },
+//                               child: Padding(
+//                                 padding: const EdgeInsets.only(right: 10),
+//                                 child: SizedBox(
+//                                   height: 80,
+//                                   width: 80,
+//                                   child: Card(
+//                                     shape: RoundedRectangleBorder(
+//                                         borderRadius:
+//                                         BorderRadius.circular(20)),
+//                                     child: ClipRRect(
+//                                       borderRadius: BorderRadius.circular(20.0),
+//                                       child: Image(
+//                                           image: AssetImage(images1[2]),
+//                                           fit: BoxFit.cover),
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                             InkWell(
+//                               onTap: () {
+//                                 setState(() {
+//                                   selectedImageIndex1 = 3;
+//                                 });
+//                               },
+//                               child: Padding(
+//                                 padding: const EdgeInsets.only(right: 10),
+//                                 child: SizedBox(
+//                                   height: 80,
+//                                   width: 80,
+//                                   child: Card(
+//                                     shape: RoundedRectangleBorder(
+//                                         borderRadius:
+//                                         BorderRadius.circular(20)),
+//                                     child: ClipRRect(
+//                                         borderRadius: BorderRadius.circular(20),
+//                                         child: Image(
+//                                             image: AssetImage(images1[3]),
+//                                             fit: BoxFit.fill)),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               )
+//             ],
 //           ),
-//         ),
-//       ),
-//     );
+//         ));
 //   }
 // }
