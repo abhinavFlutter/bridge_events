@@ -1,12 +1,5 @@
 
-
 import 'package:bridge_events/screen/hindu_wedding/hindu_page1.dart';
-import 'package:bridge_events/screen/homePage/drawerScreen.dart';
-import 'package:bridge_events/screen/homePage/mainScreen.dart';
-import 'package:bridge_events/screen/homePage/navigation.dart';
-import 'package:bridge_events/screen/trash/demo/h2.dart';
-import 'package:bridge_events/screen/trash/demo/home_demo.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

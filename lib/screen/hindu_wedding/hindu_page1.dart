@@ -28,6 +28,19 @@ class _HinduPage1State extends State<HinduPage1> {
     'assets/images/img5.jpeg',
   ];
   int selectedImageIndex1 = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
   final List description=[
     "Though it’s the most important part of \na wedding day, "
         "the ceremony is the space\nwhere your guests"
@@ -109,7 +122,7 @@ final List price=[
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Stack(children: [
-                                Text("Description",
+                                const Text("Description",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 25,
@@ -122,7 +135,7 @@ final List price=[
                                   padding: EdgeInsets.only(left: 240),
                                   child: Text(
                                     price[index4],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500),
                                   ),
@@ -141,7 +154,7 @@ final List price=[
                             child:  Center(
                               child: Text(
                                   description[index2],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 15, color: Colors.black)),
                             ),
                           ),
@@ -151,7 +164,7 @@ final List price=[
                             child: Stack(children: [
                                Text(
                                 items[index3],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.black54,
                                     fontWeight: FontWeight.w400),
@@ -234,7 +247,7 @@ final List price=[
                           InkWell(
                             onTap: () {
                               setState(() {
-                                selectedImageIndex = index;
+                                selectedImageIndex = 0;
                               });
                             },
                             child: Padding(
@@ -249,7 +262,7 @@ final List price=[
                                   child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image(
-                                          image: AssetImage(images[index]),
+                                          image: AssetImage(images[0]),
                                           fit: BoxFit.fill)),
                                 ),
                               )
@@ -258,7 +271,7 @@ final List price=[
                           InkWell(
                             onTap: () {
                               setState(() {
-                                selectedImageIndex = index;
+                                selectedImageIndex = 1;
                               });
                             },
                             child: Padding(
@@ -273,7 +286,7 @@ final List price=[
                                   child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image(
-                                        image: AssetImage(images[index]),
+                                        image: AssetImage(images[1]),
                                         fit: BoxFit.fill,
                                       )),
                                 ),
@@ -283,7 +296,7 @@ final List price=[
                           InkWell(
                             onTap: () {
                               setState(() {
-                                selectedImageIndex = index;
+                                selectedImageIndex = 2;
                               });
                             },
                             child: Padding(
@@ -298,7 +311,7 @@ final List price=[
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(20.0),
                                     child: Image(
-                                        image: AssetImage(images[index]),
+                                        image: AssetImage(images[2]),
                                         fit: BoxFit.cover),
                                   ),
                                 ),
@@ -308,7 +321,7 @@ final List price=[
                           InkWell(
                             onTap: () {
                               setState(() {
-                                selectedImageIndex = index;
+                                selectedImageIndex = 3;
                               });
                             },
                             child: Padding(
@@ -323,7 +336,7 @@ final List price=[
                                   child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image(
-                                          image: AssetImage(images[index]),
+                                          image: AssetImage(images[3]),
                                           fit: BoxFit.fill)),
                                 ),
                               ),
