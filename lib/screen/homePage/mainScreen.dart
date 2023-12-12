@@ -133,7 +133,7 @@ class _MainScreenState extends State<MainScreen> {
                         onTap: () {
                          setState(() {
                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                             return HinduPage1();
+                             return const HinduPage1();
                            },));
                          });
                         },

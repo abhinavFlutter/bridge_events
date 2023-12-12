@@ -1,5 +1,8 @@
 
+import 'package:bridge_events/screen/bookingPage/booking.dart';
 import 'package:bridge_events/screen/hindu_wedding/hindu_page1.dart';
+import 'package:bridge_events/screen/login_page.dart';
+import 'package:bridge_events/screen/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +16,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return     const MaterialApp(
+    return       MaterialApp(
       // theme: ThemeData(visualDensity: VisualDensity.compact),
       home:HinduPage1(),
       debugShowCheckedModeBanner: false,

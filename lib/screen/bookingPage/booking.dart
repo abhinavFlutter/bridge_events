@@ -183,8 +183,8 @@ var amountController=TextEditingController();
 
 
           Padding(
-            padding: const EdgeInsets.only(right: 150,left: 150,top: 30),
-            child: SizedBox(height: 50,width: 30,
+            padding: const EdgeInsets.only(right: 150,left: 150,top: 60),
+            child: SizedBox(height: 50,width: 20,
               child: ElevatedButton(
                   style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.black26),),
                   onPressed: () {
