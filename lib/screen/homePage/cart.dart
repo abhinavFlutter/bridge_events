@@ -11,7 +11,7 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     return  Scaffold(
       body: Center(
-        child: Text("Cart",style: TextStyle(color: Colors.black,fontSize: 40)),
+        child: Text("Favorite",style: TextStyle(color: Colors.black,fontSize: 40)),
       ),
     );
   }

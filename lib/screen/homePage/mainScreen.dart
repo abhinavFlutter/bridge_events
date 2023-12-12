@@ -4,6 +4,8 @@ import 'package:bridge_events/screen/hindu_wedding/hindu_page1.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+import '../hindu_wedding/hindu_demo.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 

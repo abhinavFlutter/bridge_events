@@ -1,5 +1,6 @@
 
 import 'package:bridge_events/screen/bookingPage/booking.dart';
+import 'package:bridge_events/screen/hindu_wedding/hindu_demo.dart';
 import 'package:bridge_events/screen/hindu_wedding/hindu_page1.dart';
 import 'package:bridge_events/screen/login_page.dart';
 import 'package:bridge_events/screen/splash_screen.dart';
