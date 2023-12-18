@@ -3,7 +3,7 @@ class EventCategoryModel {
   late String? categoryName;
   late String? categoryImg;
 
-  EventCategoryModel({this.categoryId, this.categoryName, this.categoryImg});
+  EventCategoryModel({required this.categoryId, required this.categoryName, required this.categoryImg});
   //convert json data to dart objects
   factory EventCategoryModel.fromJson(Map<String, dynamic> json) {
     return EventCategoryModel(

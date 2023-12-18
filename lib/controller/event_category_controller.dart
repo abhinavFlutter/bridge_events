@@ -6,7 +6,7 @@ class EventCategoryController extends GetxController {
 
   Future<List<QueryDocumentSnapshot<Object?>>> getEventCategoryData() async {
     final QuerySnapshot eventCategoryData =
-        await _firestore.collection('eventCategory').get();
+        await _firestore.collection('eventcategory').get();
     return eventCategoryData.docs;
   }
 }
