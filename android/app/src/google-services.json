@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "841133214054",
+    "project_id": "bridge-events-abe67",
+    "storage_bucket": "bridge-events-abe67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841133214054:android:8e44ca00cefa8e753aa0a7",
+        "android_client_info": {
+          "package_name": "com.abhinav.bridge_events"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYMGJ9w42d0CpwZrMBE6G2QpI_MQmJThc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
