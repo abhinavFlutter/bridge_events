@@ -1,12 +1,12 @@
-import 'dart:ui';
 
-import 'package:bridge_events/screen/profile.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-import 'cart.dart';
-import 'drawerScreen.dart';
-import 'favourite.dart';
+import '../../profile_page/profile.dart';
+import '../cart_page/cart.dart';
+import '../drawer_page/drawer.dart';
+import '../favourite_page/favourite.dart';
+
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
@@ -34,7 +34,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             backgroundColor: Colors.black54,
             splashColor: Colors.white10,
             selectedItemColor: Colors.white,
-          dotIndicatorColor: Colors.yellow,
+            dotIndicatorColor: Colors.yellow,
             unselectedItemColor: Colors.white,
             items: [
               DotNavigationBarItem(

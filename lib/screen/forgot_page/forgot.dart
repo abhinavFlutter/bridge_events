@@ -22,33 +22,33 @@ class _ForgotPassState extends State<ForgotPass> {
               const Image(image: AssetImage('assets/images/Screenshot 2023-11-30 213928.png')),
               const Center(
                   child: Padding(
-                padding: EdgeInsets.only(top: 40),
-                child: Text("Forgot Your Password?",
-                    style:
+                    padding: EdgeInsets.only(top: 40),
+                    child: Text("Forgot Your Password?",
+                        style:
                         TextStyle(fontSize: 28, fontWeight: FontWeight.w700,color: Colors.red)),
-              )),
+                  )),
               const Center(
                   child: Padding(
-                padding: EdgeInsets.only(top: 25),
-                child: Text("Enter the Email address associated with",
-                    style: TextStyle(color: Colors.grey)),
-              )),
+                    padding: EdgeInsets.only(top: 25),
+                    child: Text("Enter the Email address associated with",
+                        style: TextStyle(color: Colors.grey)),
+                  )),
               const Center(
                   child: Text(
-                "Your account",
-                style: TextStyle(color: Colors.grey),
-              )),
+                    "Your account",
+                    style: TextStyle(color: Colors.grey),
+                  )),
               Padding(
                 padding: const EdgeInsets.only(right: 50, left: 50, top: 15),
                 child: TextFormField(
                     decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
+                            BorderRadius.all(Radius.circular(15))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white38),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
+                            BorderRadius.all(Radius.circular(15))),
                         hintText: " Email",
                         hintStyle: TextStyle(color: Colors.black),
                         // labelText: ' Email',
@@ -62,7 +62,7 @@ class _ForgotPassState extends State<ForgotPass> {
                         return ("Please enter your email");
                       }
                       if (!RegExp(
-                              r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                          r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
                           .hasMatch(value)) {
                         return "Enter a valid email address";
                       }

@@ -1,5 +1,7 @@
-import 'package:bridge_events/screen/profile.dart';
+
 import 'package:flutter/material.dart';
+
+import '../profile_page/profile.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -29,31 +31,31 @@ class _SettingPageState extends State<SettingPage> {
       body: ListView(children: [
         const Center(
             child: Padding(
-          padding: EdgeInsets.only(top: 30),
-          child: Text(
-            "Settings",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 30,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 2),
-          ),
-        )),
+              padding: EdgeInsets.only(top: 30),
+              child: Text(
+                "Settings",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 2),
+              ),
+            )),
         const Padding(
           padding: EdgeInsets.only(left: 10, right: 10, top: 7),
           child: ListTile(
-              // shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-              // tileColor: Color.fromARGB(80, 80, 80, 80),
-              // leading: Icon(
-              //   Icons.person_add_alt,
-              //   color: Colors.black,
-              // ),
+            // shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+            // tileColor: Color.fromARGB(80, 80, 80, 80),
+            // leading: Icon(
+            //   Icons.person_add_alt,
+            //   color: Colors.black,
+            // ),
               title: Padding(
                 padding: EdgeInsets.only(left: 30),
                 child: Text(
                   "Accounts",
                   style: TextStyle(
-                    color: Colors.black,fontWeight: FontWeight.w700,fontSize: 20
+                      color: Colors.black,fontWeight: FontWeight.w700,fontSize: 20
                   ),
                 ),
               )),
@@ -92,7 +94,7 @@ class _SettingPageState extends State<SettingPage> {
               color: Colors.black,
             ),
             title:
-                const Text("Change Password", style: TextStyle(fontSize: 15)),
+            const Text("Change Password", style: TextStyle(fontSize: 15)),
           ),
         ),
         Padding(
@@ -115,10 +117,10 @@ class _SettingPageState extends State<SettingPage> {
         const Padding(
           padding: EdgeInsets.only(right: 10, left: 10, top: 7),
           child: ListTile(
-              // leading: Icon(
-              //   Icons.privacy_tip,
-              //   color: Colors.black,
-              // ),
+            // leading: Icon(
+            //   Icons.privacy_tip,
+            //   color: Colors.black,
+            // ),
               title: Padding(
                 padding: EdgeInsets.only(left: 30),
                 child: Text("Notification",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 20),),
@@ -247,7 +249,7 @@ class _SettingPageState extends State<SettingPage> {
         ),
         Padding(
           padding:
-              const EdgeInsets.only(top: 40, right: 40, left: 40,),
+          const EdgeInsets.only(top: 40, right: 40, left: 40,),
           child: ListTile(
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20))),

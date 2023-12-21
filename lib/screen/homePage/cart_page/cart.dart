@@ -9,7 +9,7 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return  const Scaffold(
       body: Center(
         child: Text("Favorite",style: TextStyle(color: Colors.black,fontSize: 40)),
       ),

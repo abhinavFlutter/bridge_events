@@ -1,12 +1,17 @@
-import 'package:bridge_events/screen/login_page.dart';
+
+import 'package:bridge_events/controller/email_password_controller/emailPassword.dart';
 import 'package:flutter/material.dart';
+
+import '../login_page/login.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
 
+
   @override
   State<Register> createState() => _RegState();
 }
+
 
 class _RegState extends State<Register> {
   var loginKey = GlobalKey<FormState>();
@@ -19,6 +24,8 @@ class _RegState extends State<Register> {
   var phoneController = TextEditingController();
   bool passVisible = false;
   bool confirmPassVisible = false;
+
+  GoogleSignInController googleSignInController=GoogleSignInController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +50,16 @@ class _RegState extends State<Register> {
                 Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                   Padding(
                     padding:
-                        const EdgeInsets.only(right: 50, left: 50, top: 5),
+                    const EdgeInsets.only(right: 50, left: 50, top: 5),
                     child: TextFormField(
                       decoration: const InputDecoration(
                           focusedBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                              BorderRadius.all(Radius.circular(15))),
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white38),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                              BorderRadius.all(Radius.circular(15))),
                           hintText: " Name",
                           hintStyle: TextStyle(color: Colors.black),
                           suffixIcon: Icon(Icons.person_add, size: 15),
@@ -73,18 +80,18 @@ class _RegState extends State<Register> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(right: 50, left: 50, top: 25),
+                    const EdgeInsets.only(right: 50, left: 50, top: 25),
                     child: TextFormField(
                       keyboardType: TextInputType.phone,
                       maxLength: 10,
                       decoration: const InputDecoration(
                           focusedBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                              BorderRadius.all(Radius.circular(15))),
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white38),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                              BorderRadius.all(Radius.circular(15))),
                           hintText: "Mobile Number",
                           hintStyle: TextStyle(color: Colors.black),
                           suffixIcon: Icon(Icons.phone_android, size: 15),
@@ -106,17 +113,17 @@ class _RegState extends State<Register> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(right: 50, left: 50, top: 25),
+                    const EdgeInsets.only(right: 50, left: 50, top: 25),
                     child: TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
                             focusedBorder: OutlineInputBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
+                                BorderRadius.all(Radius.circular(15))),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white38),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
+                                BorderRadius.all(Radius.circular(15))),
                             hintText: "Email",
                             hintStyle: TextStyle(color: Colors.black),
                             suffixIcon: Icon(Icons.alternate_email, size: 15),
@@ -128,7 +135,7 @@ class _RegState extends State<Register> {
                             return ("Please enter your email");
                           }
                           if (!RegExp(
-                                  r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                              r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
                               .hasMatch(value)) {
                             return "Enter a valid email address";
                           }
@@ -137,7 +144,7 @@ class _RegState extends State<Register> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(right: 50, left: 50, top: 25),
+                    const EdgeInsets.only(right: 50, left: 50, top: 25),
                     child: TextFormField(
                       maxLength: 12,
                       obscureText: !passVisible,
@@ -145,11 +152,11 @@ class _RegState extends State<Register> {
                       decoration: InputDecoration(
                           focusedBorder: const OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                              BorderRadius.all(Radius.circular(15))),
                           enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white38),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                              BorderRadius.all(Radius.circular(15))),
                           hintText: "Password",
                           hintStyle: TextStyle(color: Colors.black),
                           suffixIcon: IconButton(
@@ -164,14 +171,14 @@ class _RegState extends State<Register> {
                               iconSize: 17),
                           filled: true,
                           fillColor:
-                              const Color.fromARGB(129, 129, 129, 129)),
+                          const Color.fromARGB(129, 129, 129, 129)),
                       controller: password,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return ("Please choose a stronger password.\n Try a mix of letters, numbers and symbols.");
                         }
                         if (!RegExp(
-                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,12}$')
+                            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,12}$')
                             .hasMatch(value)) {
                           return "Enter  valid password";
                         }
@@ -181,7 +188,7 @@ class _RegState extends State<Register> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(right: 50, left: 50, top: 25),
+                    const EdgeInsets.only(right: 50, left: 50, top: 25),
                     child: TextFormField(
                       maxLength: 12,
                       obscureText: !confirmPassVisible,
@@ -189,11 +196,11 @@ class _RegState extends State<Register> {
                       decoration: InputDecoration(
                           focusedBorder: const OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                              BorderRadius.all(Radius.circular(15))),
                           enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white38),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                              BorderRadius.all(Radius.circular(15))),
                           hintText: "Confirm Password",
                           hintStyle: TextStyle(color: Colors.black),
                           suffixIcon: IconButton(
@@ -234,13 +241,13 @@ class _RegState extends State<Register> {
                             decoration: const BoxDecoration(
                                 color: (Colors.black),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(5))),
+                                BorderRadius.all(Radius.circular(5))),
                             child: TextButton(
                                 onPressed: () {
                                   if (loginKey.currentState!.validate()) {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
-                                            content: Text("Success")));
+                                        content: Text("Success")));
                                   }
                                 },
                                 child: const Text(
@@ -262,11 +269,18 @@ class _RegState extends State<Register> {
                                 height: 40,
                                 width: 40,
                                 child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      setState(() {
+                                        googleSignInController.signInWithGoogle();
+
+                                      });
+
+
+                                    },
                                     icon: const Image(
                                         image: AssetImage(
-                                      'assets/images/google.png',
-                                    ))),
+                                          'assets/images/google.png',
+                                        ))),
                               ),
                             ],
                           ),
@@ -291,7 +305,7 @@ class _RegState extends State<Register> {
                           child: const Text(
                             "Login",
                             style:
-                                TextStyle(fontSize: 17, color: Colors.black),
+                            TextStyle(fontSize: 17, color: Colors.black),
                           ))
                     ],
                   )

@@ -2,8 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
-import 'mainScreen.dart';
-import 'menuScreen.dart';
+import '../../../view/event_category_view.dart';
+import '../manu_page/menu.dart';
+
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});

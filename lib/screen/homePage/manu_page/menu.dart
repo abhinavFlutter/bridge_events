@@ -4,10 +4,11 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../profile.dart';
-import '../settings_page.dart';
-import '../trash/demo/h2.dart';
-import 'drawerScreen.dart';
+import '../../../controller/email_password_controller/emailPassword.dart';
+import '../../profile_page/profile.dart';
+import '../../setting_page/setting.dart';
+
+import '../drawer_page/drawer.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -17,6 +18,8 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+
+  GoogleSignInController googleSignInController=GoogleSignInController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,7 +164,12 @@ class _MenuScreenState extends State<MenuScreen> {
                   width: 270,
                   height: 60,
                   child: ListTile(
-                    onTap: () {},
+                    onTap: () {
+
+                      setState(() {
+                        googleSignInController.signOutGoogle();
+                      });
+                    },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     trailing: const Padding(
