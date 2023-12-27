@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../controller/email_password_controller/emailPassword.dart';
 import '../forgot_page/forgot.dart';
 import '../homePage/drawer_page/drawer.dart';
 import '../homePage/navigation_page/navigation.dart';
@@ -23,6 +24,7 @@ bool passVisible = false;
 class _BridgeState extends State<Login> {
   final loginKey = GlobalKey<FormState>();
 
+  GoogleSignInController googleSignInController=GoogleSignInController();
 
 
   @override
@@ -364,8 +366,7 @@ class _BridgeState extends State<Login> {
                             )),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Row(mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Center(
                           child: Container(
@@ -392,6 +393,29 @@ class _BridgeState extends State<Login> {
                                   "Login",
                                   style: TextStyle(color: Colors.white),
                                 )),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(5)),
+                            height: 40,
+                            width: 40,
+                            child: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    googleSignInController.signInWithGoogle();
+
+                                  });
+
+
+                                },
+                                icon: const Image(
+                                    image: AssetImage(
+                                      'assets/images/google.png',
+                                    ))),
                           ),
                         ),
                       ],

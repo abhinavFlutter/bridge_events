@@ -32,7 +32,8 @@ class _Splashscreen1State extends State<Splashscreen1> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: SingleChildScrollView(
+      body:
+      SingleChildScrollView(
         child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -41,12 +42,12 @@ class _Splashscreen1State extends State<Splashscreen1> {
                   padding: EdgeInsets.only(top: 140),
                   child: Image(
                       image: AssetImage(
-                        'assets/images/logo2.png',
+                        'assets/images/splashscreen2.png',
                       )),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 110),
-                  child: CircularProgressIndicator(color: Color.fromARGB(255, 255, 182, 193)),
+                  child: CircularProgressIndicator(color: Colors.black),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 90,left: 10,right: 10),
@@ -60,7 +61,7 @@ class _Splashscreen1State extends State<Splashscreen1> {
                             "If you are with the right person,",
                             style: TextStyle(
 
-                              color: Colors.white, letterSpacing: 2, wordSpacing: 2,
+                              color: Colors.black, letterSpacing: 2, wordSpacing: 2,
 
                             ),
                           ),
@@ -69,7 +70,7 @@ class _Splashscreen1State extends State<Splashscreen1> {
                             "it brings out the best version of you.",
                             style: TextStyle(
 
-                              color: Colors.white, letterSpacing: 2, wordSpacing: 2,
+                              color: Colors.black, letterSpacing: 2, wordSpacing: 2,
 
                             ),
                           ),
@@ -81,7 +82,7 @@ class _Splashscreen1State extends State<Splashscreen1> {
               ],
             )),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
     );
   }
 }

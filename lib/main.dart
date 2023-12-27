@@ -1,5 +1,7 @@
 
+import 'package:bridge_events/screen/login_page/login.dart';
 import 'package:bridge_events/screen/registration_page/registration.dart';
+import 'package:bridge_events/screen/splash_screen_page/splashScreen.dart';
 import 'package:bridge_events/view/description_view.dart';
 import 'package:bridge_events/view/event_category_view.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const GetMaterialApp(
       // theme: ThemeData(visualDensity: VisualDensity.compact),
-      home: Register(),
+      home: Splashscreen1(),
       debugShowCheckedModeBanner: false,
     );
   }
