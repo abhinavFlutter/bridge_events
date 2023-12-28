@@ -131,7 +131,7 @@ class _MainScreenState extends State<MainScreen> {
                           final title = categoryName[index];
                           return InkWell(
                             onTap: () {
-                              Get.to(() => const DescriptionPage());
+                              Get.to(() =>  DescriptionPage());
                             },
                             child: Card(
                               elevation: 0,
@@ -216,13 +216,13 @@ class _MainScreenState extends State<MainScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: const Image(
-                        image: AssetImage('assets/images/instaQR1.jpg'),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                    // child: ClipRRect(
+                    //   borderRadius: BorderRadius.circular(20),
+                    //   child: const Image(
+                    //     image: AssetImage('assets/images/instaQR1.jpg'),
+                    //     fit: BoxFit.fill,
+                    //   ),
+                    // ),
                   ),
                 ),
               ),

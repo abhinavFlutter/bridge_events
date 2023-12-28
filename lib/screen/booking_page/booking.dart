@@ -1,6 +1,9 @@
-
+import 'package:bridge_events/screen/Text_button/textButton.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../payment/payment.dart';
 
 class Booking extends StatefulWidget {
   @override
@@ -21,43 +24,33 @@ class _BookingState extends State<Booking> {
     "Groom Makeup",
   ];
 
-  // var items2 = [
-  //   // "",
-  //   "Photographer",
-  //   "Cake",
-  //   "Invitation card",
-  //   "Bridal Makeup",
-  //   "Groom Makeup",
-  // ];
 
   int selectedTextIndex = 0;
   List<String> selectedItems = [];
   final loginKey = GlobalKey<FormState>();
-var amountController=TextEditingController();
+  var amountController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
     return Scaffold(
-
-        body: Form(
-
-      key: loginKey,
-
-      child: ListView(
-
-        children: [
-
+      body: Form(
+          key: loginKey,
+          child: ListView(children: [
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: Center(
                 child: Text("Mark the Date",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700)),
+                    style:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.w700)),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(
                   top: 10, right: 40, left: 40, bottom: 0),
-              child: SizedBox(width: 400,height: 400,
+              child: SizedBox(
+                width: 400,
+                height: 400,
                 child: TableCalendar(
                   calendarStyle: const CalendarStyle(
                     todayDecoration: ShapeDecoration(
@@ -108,13 +101,13 @@ var amountController=TextEditingController();
                     width: 310,
                     child: ListTile(
                       shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
                       tileColor: Colors.transparent,
                       title: Center(
                         child: Text(
-                           selectedItems.join(","),
-                            style: TextStyle(color: Colors.red),),
+                          selectedItems.join(","),
+                          style: TextStyle(color: Colors.red),
+                        ),
                       ),
                     ),
                   ),
@@ -179,23 +172,18 @@ var amountController=TextEditingController();
                 },
               ),
             ),
-
-
-
-          Padding(
-            padding: const EdgeInsets.only(right: 150,left: 150,top: 60),
-            child: SizedBox(height: 50,width: 20,
-              child: ElevatedButton(
-                  style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.black26),),
-                  onPressed: () {
-
-              }, child: Text("Done",style: TextStyle(color: Colors.black),)),
-            ),
-          )
-  ]
-    )
-      ),
-
+            Padding(
+              padding: const EdgeInsets.only(top: 60, right: 150, left: 150),
+              child: MyButton(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return PaymentScreen();
+                  },));
+                },
+                child: Text("Next", style: TextStyle(color: Colors.white)),
+              ),
+            )
+          ])),
     );
   }
 }

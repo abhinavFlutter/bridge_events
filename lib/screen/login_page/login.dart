@@ -1,14 +1,16 @@
-
+import 'package:bridge_events/screen/trash/shimmer_ex1.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../controller/email_password_controller/emailPassword.dart';
+import '../../controller/email_pass_controller/email_pass_controller.dart';
+import '../../controller/google_controller/google_controller_file.dart';
 import '../forgot_page/forgot.dart';
 import '../homePage/drawer_page/drawer.dart';
 import '../homePage/navigation_page/navigation.dart';
 import '../registration_page/registration.dart';
-
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -22,11 +24,13 @@ var passwordController = TextEditingController();
 bool passVisible = false;
 
 class _BridgeState extends State<Login> {
+
   final loginKey = GlobalKey<FormState>();
 
-  GoogleSignInController googleSignInController=GoogleSignInController();
-
-
+  final EmailPassController _emailPassController =
+  Get.put(EmailPassController());
+  final GoogleSignInController _googleSignInController =
+  Get.put(GoogleSignInController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +39,8 @@ class _BridgeState extends State<Login> {
         child: Container(
           decoration: const BoxDecoration(color: Colors.white),
           child: FutureBuilder(
-            future: Future.delayed(const Duration(seconds: 1)), // Add delay here
+            future: Future.delayed(const Duration(seconds: 1)),
+            // Add delay here
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 // Return the shimmer effect while waiting
@@ -46,55 +51,56 @@ class _BridgeState extends State<Login> {
                     children: [
                       const Center(
                           child: Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text("Bridge Events",
-                                style: TextStyle(
-                                    fontSize: 40, fontWeight: FontWeight.w900)),
-                          )),
+                        padding: EdgeInsets.all(10.0),
+                        child: Text("Bridge Events",
+                            style: TextStyle(
+                                fontSize: 40, fontWeight: FontWeight.w900)),
+                      )),
                       const Center(
                           child: Image(
-                            image: AssetImage(
-                                'assets/images/loginorg.png'),
-                            // height: 400,
-                            // width: 400,
-                          )),
+                        image: AssetImage('assets/images/loginorg.png'),
+                        // height: 400,
+                        // width: 400,
+                      )),
                       const Center(
                           child: Padding(
-                            padding: EdgeInsets.only(top: 10),
-                            child: Text(
-                              'welcome Back!',
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                          )),
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text(
+                          'welcome Back!',
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                      )),
                       const Center(
                           child: Padding(
-                            padding: EdgeInsets.only(top: 15),
-                            child: Text(
-                                "welcome back to the best. we're\n always here, waiting for you!",
-                                style: TextStyle(wordSpacing: 2,fontSize: 16),
-                                textAlign: TextAlign.center),
-                          )),
+                        padding: EdgeInsets.only(top: 15),
+                        child: Text(
+                            "welcome back to the best. we're\n always here, waiting for you!",
+                            style: TextStyle(wordSpacing: 2, fontSize: 16),
+                            textAlign: TextAlign.center),
+                      )),
                       Padding(
                         padding:
-                        const EdgeInsets.only(right: 50, left: 50, top: 15),
+                            const EdgeInsets.only(right: 50, left: 50, top: 15),
                         child: TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
+                                        BorderRadius.all(Radius.circular(15))),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white38),
+                                    borderSide:
+                                        BorderSide(color: Colors.white38),
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
+                                        BorderRadius.all(Radius.circular(15))),
                                 hintText: " Email",
                                 hintStyle: TextStyle(color: Colors.black),
                                 // labelText: ' Email',
                                 // labelStyle: TextStyle(color: Colors.black),
-                                suffixIcon: Icon(Icons.alternate_email, size: 15),
+                                suffixIcon:
+                                    Icon(Icons.alternate_email, size: 15),
                                 filled: true,
                                 fillColor: Color.fromARGB(129, 129, 129, 129)),
                             controller: emailController,
@@ -103,7 +109,7 @@ class _BridgeState extends State<Login> {
                                 return ("Please enter your email");
                               }
                               if (!RegExp(
-                                  r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                                      r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
                                   .hasMatch(value)) {
                                 return "Enter a valid email address";
                               }
@@ -112,27 +118,30 @@ class _BridgeState extends State<Login> {
                       ),
                       Padding(
                         padding:
-                        const EdgeInsets.only(right: 50, left: 50, top: 25),
+                            const EdgeInsets.only(right: 50, left: 50, top: 25),
                         child: TextFormField(
                             maxLength: 12,
-                            decoration:  InputDecoration(
+                            decoration: InputDecoration(
                                 focusedBorder: const OutlineInputBorder(
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
+                                        BorderRadius.all(Radius.circular(15))),
                                 enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white38),
+                                    borderSide:
+                                        BorderSide(color: Colors.white38),
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
+                                        BorderRadius.all(Radius.circular(15))),
                                 hintText: " Password",
                                 hintStyle: TextStyle(color: Colors.black),
-                                suffixIcon: IconButton(onPressed: () {
-                                  setState(() {
-                                    passVisible=!passVisible;
-                                  });
-                                }, icon: Icon(passVisible
-                                    ?Icons.visibility
-                                    :Icons.visibility_off
-                                ),iconSize: 17),
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        passVisible = !passVisible;
+                                      });
+                                    },
+                                    icon: Icon(passVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                    iconSize: 17),
                                 filled: true,
                                 fillColor: Color.fromARGB(129, 129, 129, 129)),
                             controller: passwordController,
@@ -143,7 +152,7 @@ class _BridgeState extends State<Login> {
                                 return ("Please enter your password");
                               }
                               if (!RegExp(
-                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,12}$')
+                                      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,12}$')
                                   .hasMatch(value)) {
                                 return "Enter valid password";
                               }
@@ -182,18 +191,30 @@ class _BridgeState extends State<Login> {
                               decoration: const BoxDecoration(
                                   color: (Colors.black),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(5))),
+                                      BorderRadius.all(Radius.circular(5))),
                               child: TextButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (loginKey.currentState!.validate()) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                              content: Text("success")));
-                                      setState(() {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                          return const DrawerScreen();
-                                        },));
-                                      });
+                                      _emailPassController.updateLoading();
+                                      try {
+                                        UserCredential? userCredential =
+                                        await _emailPassController
+                                            .signinUser(
+                                          emailController.text,
+                                          passwordController.text,
+                                        );
+                                        if (userCredential!
+                                            .user!.emailVerified) {
+                                          final user = userCredential.user;
+                                          Get.off(() => const NavigationScreen(),
+                                              transition: Transition
+                                                  .leftToRightWithFade);
+                                        }
+                                      } catch (e) {
+                                        print(e);
+                                      } finally {
+                                        _emailPassController.updateLoading();
+                                      }
                                     }
                                   },
                                   child: const Text(
@@ -233,54 +254,53 @@ class _BridgeState extends State<Login> {
                 );
               } else {
                 // Return your actual content once the delay is over
-                return  ListView(
+                return ListView(
                   children: [
                     const Center(
                         child: Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Text("Bridge Events",
-                              style: TextStyle(
-                                  fontSize: 40, fontWeight: FontWeight.w900)),
-                        )),
+                      padding: EdgeInsets.all(10.0),
+                      child: Text("Bridge Events",
+                          style: TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.w900)),
+                    )),
                     const Center(
                         child: Image(
-                          image: AssetImage(
-                              'assets/images/loginorg.png'),
-                          // height: 400,
-                          // width: 400,
-                        )),
+                      image: AssetImage('assets/images/loginorg.png'),
+                      // height: 400,
+                      // width: 400,
+                    )),
                     const Center(
                         child: Padding(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Text(
-                            'welcome Back!',
-                            style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        )),
+                      padding: EdgeInsets.only(top: 10),
+                      child: Text(
+                        'welcome Back!',
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    )),
                     const Center(
                         child: Padding(
-                          padding: EdgeInsets.only(top: 15),
-                          child: Text(
-                              "welcome back to the best. we're\n always here, waiting for you!",
-                              style: TextStyle(wordSpacing: 2,fontSize: 16),
-                              textAlign: TextAlign.center),
-                        )),
+                      padding: EdgeInsets.only(top: 15),
+                      child: Text(
+                          "welcome back to the best. we're\n always here, waiting for you!",
+                          style: TextStyle(wordSpacing: 2, fontSize: 16),
+                          textAlign: TextAlign.center),
+                    )),
                     Padding(
                       padding:
-                      const EdgeInsets.only(right: 50, left: 50, top: 15),
+                          const EdgeInsets.only(right: 50, left: 50, top: 15),
                       child: TextFormField(
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                                      BorderRadius.all(Radius.circular(15))),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.white38),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                                      BorderRadius.all(Radius.circular(15))),
                               hintText: " Email",
                               hintStyle: TextStyle(color: Colors.black),
                               // labelText: ' Email',
@@ -294,7 +314,7 @@ class _BridgeState extends State<Login> {
                               return ("Please enter your email");
                             }
                             if (!RegExp(
-                                r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                                    r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
                                 .hasMatch(value)) {
                               return "Enter a valid email address";
                             }
@@ -303,27 +323,29 @@ class _BridgeState extends State<Login> {
                     ),
                     Padding(
                       padding:
-                      const EdgeInsets.only(right: 50, left: 50, top: 25),
+                          const EdgeInsets.only(right: 50, left: 50, top: 25),
                       child: TextFormField(
                           maxLength: 12,
-                          decoration:  InputDecoration(
+                          decoration: InputDecoration(
                               focusedBorder: const OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                                      BorderRadius.all(Radius.circular(15))),
                               enabledBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.white38),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                                      BorderRadius.all(Radius.circular(15))),
                               hintText: " Password",
                               hintStyle: TextStyle(color: Colors.black),
-                              suffixIcon: IconButton(onPressed: () {
-                                setState(() {
-                                  passVisible=!passVisible;
-                                });
-                              }, icon: Icon(passVisible
-                                  ?Icons.visibility
-                                  :Icons.visibility_off
-                              ),iconSize: 17),
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      passVisible = !passVisible;
+                                    });
+                                  },
+                                  icon: Icon(passVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                  iconSize: 17),
                               filled: true,
                               fillColor: Color.fromARGB(129, 129, 129, 129)),
                           controller: passwordController,
@@ -334,7 +356,7 @@ class _BridgeState extends State<Login> {
                               return ("Please enter your password");
                             }
                             if (!RegExp(
-                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,12}$')
+                                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,12}$')
                                 .hasMatch(value)) {
                               return "Enter valid password";
                             }
@@ -366,7 +388,8 @@ class _BridgeState extends State<Login> {
                             )),
                       ],
                     ),
-                    Row(mainAxisAlignment: MainAxisAlignment.center,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Center(
                           child: Container(
@@ -375,7 +398,7 @@ class _BridgeState extends State<Login> {
                             decoration: const BoxDecoration(
                                 color: (Colors.black),
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(5))),
+                                    BorderRadius.all(Radius.circular(5))),
                             child: TextButton(
                                 onPressed: () {
                                   if (loginKey.currentState!.validate()) {
@@ -383,9 +406,11 @@ class _BridgeState extends State<Login> {
                                         const SnackBar(
                                             content: Text("success")));
                                     setState(() {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                        return NavigationScreen();
-                                      },));
+                                      Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) {
+                                          return NavigationScreen();
+                                        },
+                                      ));
                                     });
                                   }
                                 },
@@ -406,16 +431,15 @@ class _BridgeState extends State<Login> {
                             child: IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    googleSignInController.signInWithGoogle();
+                                    _googleSignInController.signInWithGoogle();
 
                                   });
-
 
                                 },
                                 icon: const Image(
                                     image: AssetImage(
-                                      'assets/images/google.png',
-                                    ))),
+                                  'assets/images/google.png',
+                                ))),
                           ),
                         ),
                       ],
@@ -445,7 +469,6 @@ class _BridgeState extends State<Login> {
                       ],
                     ),
                   ],
-
                 );
               }
             },
@@ -453,8 +476,5 @@ class _BridgeState extends State<Login> {
         ),
       ),
     );
-
-
-
   }
 }

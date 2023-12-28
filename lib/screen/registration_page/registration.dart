@@ -1,8 +1,11 @@
 
-import 'package:bridge_events/controller/email_password_controller/emailPassword.dart';
+import 'package:bridge_events/controller/email_pass_controller/email_pass_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../controller/google_controller/google_controller_file.dart';
 import '../login_page/login.dart';
+import 'email_validation.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -15,9 +18,9 @@ class Register extends StatefulWidget {
 
 class _RegState extends State<Register> {
   var loginKey = GlobalKey<FormState>();
-  var name = TextEditingController();
-  var password = TextEditingController();
-  var confirm = TextEditingController();
+  var nameController = TextEditingController();
+  var passwordController = TextEditingController();
+  var confirmController = TextEditingController();
 
   // var passwordController = TextEditingController();
   var emailController = TextEditingController();
@@ -26,7 +29,7 @@ class _RegState extends State<Register> {
   bool confirmPassVisible = false;
 
   GoogleSignInController googleSignInController=GoogleSignInController();
-
+EmailPassController emailPassController=EmailPassController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -65,7 +68,7 @@ class _RegState extends State<Register> {
                           suffixIcon: Icon(Icons.person_add, size: 15),
                           filled: true,
                           fillColor: Color.fromARGB(129, 129, 129, 129)),
-                      controller: name,
+                      controller: nameController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return ("Please enter your name");
@@ -172,7 +175,7 @@ class _RegState extends State<Register> {
                           filled: true,
                           fillColor:
                           const Color.fromARGB(129, 129, 129, 129)),
-                      controller: password,
+                      controller: passwordController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return ("Please choose a stronger password.\n Try a mix of letters, numbers and symbols.");
@@ -216,12 +219,12 @@ class _RegState extends State<Register> {
                           ),
                           filled: true,
                           fillColor: Color.fromARGB(129, 129, 129, 129)),
-                      controller: confirm,
+                      controller: confirmController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return ("Re-enter your password");
                         }
-                        if (value != password.text) {
+                        if (value != passwordController.text) {
                           return 'Password must be same';
                         }
 
@@ -243,11 +246,36 @@ class _RegState extends State<Register> {
                                 borderRadius:
                                 BorderRadius.all(Radius.circular(5))),
                             child: TextButton(
-                                onPressed: () {
+                                onPressed: () async{
                                   if (loginKey.currentState!.validate()) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                        content: Text("Success")));
+                                    emailPassController.updateLoading();
+
+
+                                    try {
+                                      await emailPassController.signupUser(
+                                        emailController.text,
+                                        passwordController.text,
+                                        nameController.text,
+                                      );
+
+                                      if (emailPassController.currentUser !=
+                                          null) {
+                                        Get.off(
+                                                () => EmailValidationScreen(
+                                                user: emailPassController
+                                                    .currentUser!),
+                                            transition:
+                                            Transition.leftToRightWithFade);
+                                      } else {
+                                        // No user is currently authenticated
+                                        Get.snackbar('No user is',
+                                            'currently authenticated');
+                                      }
+
+                                    }
+                                    catch(e){
+
+                                    }
                                   }
                                 },
                                 child: const Text(
