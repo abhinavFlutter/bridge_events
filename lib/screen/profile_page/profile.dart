@@ -4,8 +4,6 @@ import 'package:bridge_events/screen/homePage/navigation_page/navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-
 import '../../controller/get_user_data_controller/getUserData.dart';
 import '../../controller/google_controller/google_controller_file.dart';
 
@@ -18,7 +16,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   GoogleSignInController googleSignInController = GoogleSignInController();
-  GetUserDataController _getUserDataController = GetUserDataController();
+  final GetUserDataController _getUserDataController = GetUserDataController();
 
   Future<List<QueryDocumentSnapshot<Object?>>> _getUserData() async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -45,7 +43,7 @@ class _ProfileState extends State<Profile> {
         future: _getUserData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
@@ -61,14 +59,14 @@ class _ProfileState extends State<Profile> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage("${data[0]['userImg']}"),
-                            colorFilter: ColorFilter.mode(
+                            colorFilter: const ColorFilter.mode(
                                 Colors.black45, BlendMode.colorBurn),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 20),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 10, left: 20),
                         child: Text(
                           "Profile",
                           style: TextStyle(
@@ -100,17 +98,44 @@ class _ProfileState extends State<Profile> {
                                         verticalDirection:
                                             VerticalDirection.down,
                                         children: [
-                                          ListTile(
-                                            subtitle: Text(
-                                              "${data.isNotEmpty ? data[0]['username'] : 'N/A'}",
-                                            ),
-                                            title: Text("Name"),
+                                          Container(
+                                              width: 200,
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: Colors.white),
+                                              child: Center(
+                                                  child: Text(
+                                                      "${data.isNotEmpty ? data[0]['username'] : 'N/A'}"))),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 10),
+                                            child: Container(
+                                                width: 200,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    color: Colors.white),
+                                                child: Center(
+                                                    child: Text(
+                                                        "${!data.isNotEmpty ? data[0]['phone'] : 'xxx xxx xxxx'}"))),
                                           ),
-                                          Text(
-                                            "${!data.isNotEmpty ? data[0]['phone'] : 'xxxxxxxxxx'}",
-                                          ),
-                                          Text(
-                                            "${data.isNotEmpty ? data[0]['email'] : 'N/A'}",
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 10),
+                                            child: Container(
+                                                width: 200,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    color: Colors.white),
+                                                child: Text(
+                                                    "${data.isNotEmpty ? data[0]['email'] : 'N/A'}")),
                                           ),
                                         ],
                                       ),
@@ -129,8 +154,9 @@ class _ProfileState extends State<Profile> {
               onWillPop: () async {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => NavigationScreen()),
-                );                return false;
+                  MaterialPageRoute(builder: (context) => const NavigationScreen()),
+                );
+                return false;
               },
             );
           }

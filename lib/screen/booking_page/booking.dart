@@ -1,9 +1,13 @@
 import 'package:bridge_events/screen/Text_button/textButton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../payment/payment.dart';
+import '../../controller/cartController.dart';
+import '../confirm_order/confirmOrder.dart';
+
 
 class Booking extends StatefulWidget {
   @override
@@ -29,7 +33,7 @@ class _BookingState extends State<Booking> {
   List<String> selectedItems = [];
   final loginKey = GlobalKey<FormState>();
   var amountController = TextEditingController();
-
+  final CartController _cartController = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
@@ -37,8 +41,8 @@ class _BookingState extends State<Booking> {
       body: Form(
           key: loginKey,
           child: ListView(children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
+            const Padding(
+              padding: EdgeInsets.only(top: 30),
               child: Center(
                 child: Text("Mark the Date",
                     style:
@@ -176,11 +180,15 @@ class _BookingState extends State<Booking> {
               padding: const EdgeInsets.only(top: 60, right: 150, left: 150),
               child: MyButton(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return PaymentScreen();
-                  },));
+                  // Navigate to CartPage and pass selected items
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return CartPage(selectedItems: selectedItems);
+                    }),
+                  );
                 },
-                child: Text("Next", style: TextStyle(color: Colors.white)),
+                child: const Text("Next", style: TextStyle(color: Colors.white)),
               ),
             )
           ])),

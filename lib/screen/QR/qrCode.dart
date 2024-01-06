@@ -7,7 +7,7 @@ class QrCodeGenerator extends StatefulWidget {
 }
 
 class _QrCodeGeneratorState extends State<QrCodeGenerator> {
-  String data = "Your Unique Data"; // Replace this with your unique data
+  String data = "https://www.thebridgeevent.com/"; // Replace this with your unique data
 
   @override
   Widget build(BuildContext context) {

@@ -9,9 +9,8 @@ import 'package:flutter/material.dart';
 import '../confirm_order/confirmOrder.dart';
 
 class PaymentScreen extends StatelessWidget {
-  DescriptionModel? get descriptionModel => null;
-
-  EventCategoryModel? get eventCategoryModel => null;
+  // late DescriptionModel descriptionModel ;
+  // late EventCategoryModel eventCategoryModel ;
 
   @override
   Widget build(BuildContext context) {

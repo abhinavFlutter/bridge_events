@@ -1,19 +1,13 @@
-
 import 'dart:ui';
 
 import 'package:bridge_events/controller/event_category_controller.dart';
 import 'package:bridge_events/view/description_view.dart';
-
-import 'package:carousel_slider/carousel_slider.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
-
 import '../screen/homePage/carousel_page/carousel.dart';
-
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -23,11 +17,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
-
   // GetX connection
   final EventCategoryController _eventCategoryController =
-  Get.put(EventCategoryController());
+      Get.put(EventCategoryController());
 
   final itemHeight = 250;
   final itemWidth = 180;
@@ -79,9 +71,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: CarouselPage()
-              ),
+                  padding: EdgeInsets.only(top: 10), child: CarouselPage()),
               const Padding(
                 padding: EdgeInsets.only(top: 30),
                 child: Text(
@@ -131,7 +121,7 @@ class _MainScreenState extends State<MainScreen> {
                           final title = categoryName[index];
                           return InkWell(
                             onTap: () {
-                              Get.to(() =>  DescriptionPage());
+                              Get.to(() => const DescriptionPage());
                             },
                             child: Card(
                               elevation: 0,
@@ -158,7 +148,7 @@ class _MainScreenState extends State<MainScreen> {
                                       children: [
                                         ClipRRect(
                                           borderRadius:
-                                          BorderRadius.circular(20.0),
+                                              BorderRadius.circular(20.0),
                                           child: BackdropFilter(
                                             filter: ImageFilter.blur(
                                               sigmaX: 8.0,
@@ -233,4 +223,3 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-

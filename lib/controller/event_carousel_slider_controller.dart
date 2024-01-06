@@ -14,8 +14,7 @@ class CarouselImgController extends GetxController {
   Future<void> fetchCarouselimgUrls() async {
     try {
       QuerySnapshot carouselImgSnapshot =
-      await FirebaseFirestore.instance.collection('carouselImg').get();
-
+          await FirebaseFirestore.instance.collection('carouselImg').get();
 
       if (carouselImgSnapshot.docs.isNotEmpty) {
         carouselimgUrls.value = carouselImgSnapshot.docs
