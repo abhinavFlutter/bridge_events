@@ -2,9 +2,12 @@
 import 'package:bridge_events/model/description_model.dart';
 import 'package:bridge_events/model/event_carousel_slider_model.dart';
 import 'package:bridge_events/screen/Text_button/textButton.dart';
-import 'package:bridge_events/screen/confirm_order/confirmOrder.dart';
+import 'package:bridge_events/screen/booking_page/booking.dart';
+import 'package:bridge_events/screen/homePage/carousel_page/carousel.dart';
+import 'package:bridge_events/screen/homePage/navigation_page/navigation.dart';
 import 'package:bridge_events/screen/login_page/login.dart';
 import 'package:bridge_events/screen/payment/payment.dart';
+import 'package:bridge_events/screen/profile_page/profile.dart';
 import 'package:bridge_events/screen/splash_screen_page/splashScreen.dart';
 import 'package:bridge_events/view/description_view.dart';
 import 'package:bridge_events/view/event_category_view.dart';
@@ -20,7 +23,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
-  Get.put(CartController()); // or Get.lazyPut(() => CartController());
+  Get.put(FavoritrController2()); // or Get.lazyPut(() => CartController());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,9 +33,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  GetMaterialApp(
+    return   const GetMaterialApp(
       // theme: ThemeData(visualDensity: VisualDensity.compact),
-      home: DescriptionPage(),
+      home: NavigationScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

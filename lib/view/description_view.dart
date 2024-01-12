@@ -1,12 +1,14 @@
-import 'package:bridge_events/controller/desciption_controller.dart';
-import 'package:bridge_events/screen/confirm_order/confirmOrder.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../controller/FavoriteController/favConrollerNew.dart';
+import '../controller/desciption_controller.dart';
 import '../controller/cartController.dart';
+import '../model/FavoriteModel/favoriteModel2.dart';
 import '../model/description_model.dart';
 import '../screen/booking_page/booking.dart';
-import '../screen/trash/trash1.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DescriptionPage extends StatefulWidget {
   const DescriptionPage({Key? key}) : super(key: key);
@@ -19,72 +21,91 @@ class _DescriptionPageState extends State<DescriptionPage> {
   late List<QueryDocumentSnapshot<Object?>> data;
   Map<int, int> selectedImageIndices = {};
   final DescriptionController descriptionController =
-      Get.put(DescriptionController());
-  final CartController _cartController = Get.find<CartController>();
+  Get.put(DescriptionController());
+  final FavoritrController2 _favorite2Controller = Get.find<FavoritrController2>();
+  final FavController favController = FavController();
+  late User? user;
+  // bool isFavorite = true;
+  List<bool> isFavoriteList = [];
 
+
+
+
+  void makePhoneCall(String phoneNumber) async {
+    final url = 'tel:$phoneNumber';
+    try {
+      if (await canLaunch(url)) {
+        await launch(url, forceSafariVC: false);
+      } else {
+        throw 'Could not launch $url';
+      }
+    } catch (e) {
+      print('Error launching phone call: $e');
+    }
+  }
   @override
   void initState() {
     super.initState();
-    // Fetch the data and initialize the selectedImageIndices
-    descriptionController.getDescriptionData().then((result) {
+    user = FirebaseAuth.instance.currentUser;
+
+    descriptionController.getDescriptionData().then((result) async {
       setState(() {
         data = result;
+
         for (int i = 0; i < data.length; i++) {
           selectedImageIndices[i] = 0;
+          isFavoriteList.add(false);
         }
       });
+
+      if (user != null) {
+        Map<String, List<String>>? favoriteData =
+        await favController.getCartData(user!.uid);
+        List<String> favoriteIds =
+            favoriteData?.values.expand((e) => e).toList() ?? [];
+
+        for (int i = 0; i < data.length; i++) {
+          if (favoriteIds.contains(data[i]['descriptionId'])) {
+            setState(() {
+              isFavoriteList[i] = true;
+            });
+          }
+        }
+      }
     });
   }
 
-  bool isFavorite = false;
-
-  void toggleFavorite() {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
-
-    if (isFavorite) {
-      print('Marked as favorite!');
-    } else {
-      print('Unmarked as favorite!');
-    }
-  }
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  GlobalKey<RefreshIndicatorState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body:
-      FutureBuilder<List<QueryDocumentSnapshot<Object?>>>(
+      body: FutureBuilder<List<QueryDocumentSnapshot<Object?>>>(
         future: descriptionController.getDescriptionData(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // Return a loading indicator or placeholder widget
-             return CircularProgressIndicator(); // Replace this with your loading indicator
-          } else if (snapshot.hasError) {
-            // Handle error
+          if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
-          } else if ( snapshot.data!.isEmpty) {
-            // Handle the case where data is null or empty
-            return const Text('No data available.');
+          } else if (snapshot.data == null || snapshot.data!.isEmpty) {
+            return const Text('Loading.........');
           }
 
-          // Data has been loaded successfully
           List<QueryDocumentSnapshot<Object?>> data = snapshot.data!;
           int dataLength = data.length;
 
           return ListView.builder(
             itemCount: dataLength,
             itemBuilder: (context, index) {
-              DescriptionModel productModel = DescriptionModel(
+              ProductModel productModel = ProductModel(
                 descriptionId: data[index]['descriptionId'],
                 descriptionNote: data[index]['descriptionNote'],
-                descriptionItems: data[index]['descriptionItems'],
+                descriptionItems:
+                List<String>.from(data[index]['descriptionItems']),
                 descriptionPrice: data[index]['descriptionPrice'],
-                descriptionImages: data[index]['descriptionImage'],
+                descriptionImages:
+                List<String>.from(data[index]['descriptionImage']),
                 descriptioneventname: data[index]['descriptioneventname'],
+                mainimg: data[index]['mainimg'],
               );
+
               return Column(
                 children: [
                   SizedBox(
@@ -99,7 +120,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                         child: Image(
                           image: NetworkImage(
                             productModel.descriptionImages![
-                                selectedImageIndices[index] ?? 0],
+                            selectedImageIndices[index] ?? 0],
                           ),
                           fit: BoxFit.fill,
                         ),
@@ -112,9 +133,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10,
-                          ),
+                          padding: const EdgeInsets.only(top: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -141,49 +160,100 @@ class _DescriptionPageState extends State<DescriptionPage> {
                               ),
                               IconButton(
                                 icon: Icon(
-                                  size: 30,
-                                  isFavorite
+                                  isFavoriteList[index]
                                       ? Icons.favorite
                                       : Icons.favorite_border,
-                                  color: Colors.red,
+                                  size: 30,
+                                  color: Colors.redAccent,
                                 ),
-                                onPressed: toggleFavorite,
+                                onPressed: () async {
+                                  setState(() {
+                                    isFavoriteList[index] ^= true;
+                                  });
+
+                                  FavoriteFirebaseModel favoriteItem =
+                                  FavoriteFirebaseModel(
+                                    descriptionId:
+                                    productModel.descriptionId,
+                                    descriptionNote:
+                                    productModel.descriptionNote,
+                                    descriptionItems:
+                                    productModel.descriptionItems,
+                                    descriptionPrice:
+                                    productModel.descriptionPrice,
+                                    descriptioneventname:
+                                    productModel.descriptioneventname,
+                                    mainimg: productModel.mainimg,
+                                  );
+
+                                  if (isFavoriteList[index]) {
+                                    await favController.addFavoriteItem(
+                                      uId: user!.uid,
+                                      productModel: favoriteItem,
+                                    );
+                                  } else {
+                                    await favController.removeFavoriteItem(
+                                      uId: user!.uid,
+                                      favoriteItem: favoriteItem,
+                                    );
+                                  }
+
+                                  // Update the favorite list immediately after adding/removing
+                                  if (user != null) {
+                                    Map<String, List<String>>? favoriteData =
+                                    await favController.getCartData(
+                                        user!.uid);
+                                    List<String> favoriteIds = favoriteData?.values
+                                        .expand((e) => e)
+                                        .toList() ??
+                                        [];
+
+                                    for (int i = 0; i < data.length; i++) {
+                                      if (favoriteIds
+                                          .contains(data[i]['descriptionId'])) {
+                                        setState(() {
+                                          isFavoriteList[i] = isFavoriteList[i];
+                                        });
+                                      }
+                                    }
+                                  }
+                                },
                               ),
                             ],
                           ),
-                        ),
-                        SizedBox(
-                          height: 105,
-                          width: 415,
-                          child: Card(
-                            color: Colors.white54,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Text(
-                                "${productModel.descriptionNote}",
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15, left: 10),
-                          child: Text(
-                            productModel.descriptionItems?.join('\n') ?? '',
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
+                        )
                       ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 105,
+                    width: 365,
+                    child: Card(
+                      color: Colors.white54,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          "${productModel.descriptionNote}",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15, left: 10),
+                    child: Text(
+                      productModel.descriptionItems?.join('\n') ?? '',
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                   SingleChildScrollView(
@@ -195,46 +265,46 @@ class _DescriptionPageState extends State<DescriptionPage> {
                         child: Row(
                           children: [
                             ...productModel.descriptionImages
-                                    ?.asMap()
-                                    .entries
-                                    .map(
+                                ?.asMap()
+                                .entries
+                                .map(
                                   (entry) {
-                                    int imageIndex = entry.key;
-                                    String image = entry.value;
+                                int imageIndex = entry.key;
+                                String image = entry.value;
 
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          selectedImageIndices[index] =
-                                              imageIndex;
-                                        });
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                          right: 10,
+                                return InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      selectedImageIndices[index] =
+                                          imageIndex;
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: 10,
+                                    ),
+                                    child: SizedBox(
+                                      height: 80,
+                                      width: 80,
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(20),
                                         ),
-                                        child: SizedBox(
-                                          height: 80,
-                                          width: 80,
-                                          child: Card(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              child: Image.network(
-                                                image,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                          BorderRadius.circular(20.0),
+                                          child: Image.network(
+                                            image,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
-                                    );
-                                  },
-                                ).toList() ??
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).toList() ??
                                 [],
                           ],
                         ),
@@ -249,7 +319,9 @@ class _DescriptionPageState extends State<DescriptionPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              makePhoneCall('+919747060806'); // Replace with your phone number
+                            },
                             child: SizedBox(
                               width: 150,
                               height: 70,
@@ -274,15 +346,8 @@ class _DescriptionPageState extends State<DescriptionPage> {
                           ),
                           InkWell(
                             onTap: () {
-                              // Add the item to the cart
-                              _cartController.addToCart(productModel);
-                              // Show a snackbar or any other feedback
-                              Get.snackbar(
-                                'Added to Cart',
-                                'Item added to the cart',
-                                snackPosition: SnackPosition.BOTTOM,
-                                duration: const Duration(seconds: 2),
-                              );
+                              _favorite2Controller.addedtoFavorite(productModel);
+
                               return setState(() {
                                 navigator?.push(MaterialPageRoute(
                                   builder: (context) {
@@ -302,7 +367,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                                 elevation: 30,
                                 child: const Center(
                                   child: Text(
-                                    "Add to Cart",
+                                    "Book Now",
                                     style: TextStyle(
                                       fontSize: 22,
                                       color: Colors.black,
@@ -329,7 +394,9 @@ class _DescriptionPageState extends State<DescriptionPage> {
             },
           );
         },
-      )
+      ),
     );
   }
+
 }
+

@@ -38,12 +38,12 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: FutureBuilder(
         future: _getUserData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return Center(child: const CircularProgressIndicator(color: Colors.black,backgroundColor: Colors.green,));
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
@@ -53,17 +53,10 @@ class _ProfileState extends State<Profile> {
                 children: [
                   Stack(
                     children: [
-                      Container(
-                        width: size.width,
-                        height: 650,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage("${data[0]['userImg']}"),
-                            colorFilter: const ColorFilter.mode(
-                                Colors.black45, BlendMode.colorBurn),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                      Positioned(left: 87,top: 110,
+                        child: CircleAvatar(radius: 130,backgroundImage:
+                                NetworkImage("${data[0]['userImg']}"),
+                            ),
                       ),
                       const Padding(
                         padding: EdgeInsets.only(top: 10, left: 20),
@@ -72,7 +65,7 @@ class _ProfileState extends State<Profile> {
                           style: TextStyle(
                               fontSize: 34,
                               fontWeight: FontWeight.w900,
-                              color: Colors.white),
+                              color: Colors.black),
                         ),
                       ),
                       Padding(
@@ -98,44 +91,49 @@ class _ProfileState extends State<Profile> {
                                         verticalDirection:
                                             VerticalDirection.down,
                                         children: [
-                                          Container(
-                                              width: 200,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  color: Colors.white),
-                                              child: Center(
-                                                  child: Text(
-                                                      "${data.isNotEmpty ? data[0]['username'] : 'N/A'}"))),
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 30),
+                                            child: Container(
+                                                width: 250,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(20),
+                                                    color: Colors.grey),
+                                                child: Center(
+                                                    child: Text(
+                                                        "${data.isNotEmpty ? data[0]['username'] : 'N/A'}"))),
+                                          ),
                                           Padding(
                                             padding:
-                                                const EdgeInsets.only(top: 10),
+                                                const EdgeInsets.only(top: 30),
                                             child: Container(
-                                                width: 200,
+                                                width: 250,
                                                 height: 50,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             20),
-                                                    color: Colors.white),
+                                                    color: Colors.grey),
                                                 child: Center(
                                                     child: Text(
                                                         "${!data.isNotEmpty ? data[0]['phone'] : 'xxx xxx xxxx'}"))),
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsets.only(top: 10),
+                                                const EdgeInsets.only(top: 30),
                                             child: Container(
-                                                width: 200,
+                                                width: 250,
                                                 height: 50,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             20),
-                                                    color: Colors.white),
-                                                child: Text(
-                                                    "${data.isNotEmpty ? data[0]['email'] : 'N/A'}")),
+                                                    color: Colors.grey),
+                                                child: Center(
+                                                  child: Text(
+                                                      "${data.isNotEmpty ? data[0]['email'] : 'N/A'}"),
+                                                )),
                                           ),
                                         ],
                                       ),

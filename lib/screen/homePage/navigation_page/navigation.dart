@@ -1,9 +1,9 @@
 
+import 'package:bridge_events/screen/setting_page/setting.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../profile_page/profile.dart';
-import '../cart_page/cart.dart';
 import '../drawer_page/drawer.dart';
 import '../favourite_page/favourite.dart';
 
@@ -19,9 +19,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
   int _currentSelectedIndex = 0;
   final List<Widget> _pages = [
     const DrawerScreen(),
-    const Favourite(),
-    const Cart(),
-    const Profile()
+    const FavouriteScreen(),
+    const SettingPage(),
+    const Profile(),
   ];
 
   @override
@@ -42,7 +42,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
               ),
               DotNavigationBarItem(icon: const Icon(Icons.favorite)),
               DotNavigationBarItem(
-                  icon: const Icon(Icons.shopping_cart_outlined)),
+                  icon: const Icon(Icons.settings)),
               DotNavigationBarItem(icon: Icon(Icons.person))
             ],
             onTap: (index) {

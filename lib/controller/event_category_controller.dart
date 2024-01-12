@@ -15,20 +15,3 @@ class EventCategoryController extends GetxController {
 }
 
 
-
-
-
-
-
-
-// GetX Controller
-//
-// class MainScreenController extends GetxController {
-//   RxString titles  = ''.obs;
-//   RxString imagePaths  = ''.obs;
-//
-//   void handleMainScreen(String titles, String imagePaths) {
-//     this.titles .value = titles;
-//     this.imagePaths .value = imagePaths;
-//   }
-// }

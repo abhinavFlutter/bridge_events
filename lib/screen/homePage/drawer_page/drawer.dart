@@ -28,7 +28,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       menuBackgroundColor: Colors.black,
       controller: zoomDrawerController,
       menuScreen: const MenuScreen(),
-      mainScreen: const MainScreen(),
+      mainScreen:  MainScreen(),
       style: DrawerStyle.style4,
       borderRadius: 50,
       angle: -18,

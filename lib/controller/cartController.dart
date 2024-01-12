@@ -2,14 +2,14 @@ import 'package:get/get.dart';
 
 import '../model/description_model.dart';
 
-class CartController extends GetxController {
-  RxList<DescriptionModel> cartItems = <DescriptionModel>[].obs;
+class FavoritrController2 extends GetxController {
+  RxList<ProductModel> cartItems = <ProductModel>[].obs;
 
-  void addToCart(DescriptionModel item) {
+  void addedtoFavorite(ProductModel item) {
     cartItems.add(item);
   }
 
-  void removeFromCart(DescriptionModel item) {
+  void removeFromCart(ProductModel item) {
     cartItems.remove(item);
   }
 

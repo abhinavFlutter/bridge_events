@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:bridge_events/controller/event_category_controller.dart';
 import 'package:bridge_events/view/description_view.dart';
+import 'package:cached_network_image/cached_network_image.dart'; // Import the package
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +18,11 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  // GetX connection
   final EventCategoryController _eventCategoryController =
-      Get.put(EventCategoryController());
+  Get.put(EventCategoryController());
 
-  final itemHeight = 250;
-  final itemWidth = 180;
+  final itemHeight = 250.0;
+  final itemWidth = 180.0;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,9 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               const Padding(
-                  padding: EdgeInsets.only(top: 10), child: CarouselPage()),
+                padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+                child: CarouselPage(),
+              ),
               const Padding(
                 padding: EdgeInsets.only(top: 30),
                 child: Text(
@@ -93,8 +95,6 @@ class _MainScreenState extends State<MainScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10, top: 10),
-
-                // fire base connection
                 child: FutureBuilder<List<QueryDocumentSnapshot<Object?>>>(
                   future: _eventCategoryController.getEventCategoryData(),
                   builder: (context, snapshot) {
@@ -130,13 +130,21 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                               child: Stack(
                                 children: [
-                                  // Image
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    child: Image.network(
-                                      imagePath,
-                                      fit: BoxFit.cover,
-                                    ),
+                                  // CachedNetworkImage
+                                  CachedNetworkImage(
+                                    imageUrl: imagePath,
+                                    imageBuilder: (context, imageProvider) =>
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(20.0),
+                                          child: Image(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                    placeholder: (context, url) =>
+                                        Container(color: Colors.grey[200]),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
                                   ),
 
                                   // Text
@@ -148,7 +156,7 @@ class _MainScreenState extends State<MainScreen> {
                                       children: [
                                         ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                          BorderRadius.circular(20.0),
                                           child: BackdropFilter(
                                             filter: ImageFilter.blur(
                                               sigmaX: 8.0,
@@ -182,7 +190,10 @@ class _MainScreenState extends State<MainScreen> {
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      return CircularProgressIndicator();
+                      return CircularProgressIndicator(
+                        color: Colors.black,
+                        backgroundColor: Colors.green,
+                      );
                     }
                   },
                 ),
@@ -206,13 +217,6 @@ class _MainScreenState extends State<MainScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    // child: ClipRRect(
-                    //   borderRadius: BorderRadius.circular(20),
-                    //   child: const Image(
-                    //     image: AssetImage('assets/images/instaQR1.jpg'),
-                    //     fit: BoxFit.fill,
-                    //   ),
-                    // ),
                   ),
                 ),
               ),
