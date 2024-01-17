@@ -1,5 +1,7 @@
 class FavoriteFirebaseModel {
-  late String? descriptionId;
+  late String? categoryId;
+  late String? categoryImg;
+  late String? categoryName;
   late String? descriptionPrice;
   late String? descriptioneventname;
   late String? mainimg;
@@ -8,7 +10,9 @@ class FavoriteFirebaseModel {
   late List<dynamic>? descriptionItems;
 
   FavoriteFirebaseModel({
-    this.descriptionId,
+    required this.categoryId,
+    required this.categoryImg,
+    required this.categoryName,
     this.descriptionPrice,
     this.descriptioneventname,
     this.mainimg,
@@ -18,7 +22,9 @@ class FavoriteFirebaseModel {
 
   factory FavoriteFirebaseModel.fromJson(Map<String, dynamic> json) {
     return FavoriteFirebaseModel(
-      descriptionId: json['descriptionId'],
+      categoryId:json['categoryId'],
+      categoryImg:json['categoryImg'],
+      categoryName:json['categoryName'],
       descriptionNote: json['descriptionNote'],
       descriptionItems: List.from(json['descriptionItems'] ?? []), // Use null-aware operator
       descriptionPrice: json['descriptionPrice'],
@@ -29,7 +35,9 @@ class FavoriteFirebaseModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'descriptionId': descriptionId,
+      'categoryId':categoryId,
+      'categoryImg':categoryImg,
+      'categoryName':categoryName,
       'descriptionNote': descriptionNote,
       'descriptionItems': descriptionItems,
       'descriptionPrice': descriptionPrice,

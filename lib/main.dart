@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return   const GetMaterialApp(
       // theme: ThemeData(visualDensity: VisualDensity.compact),
-      home: NavigationScreen(),
+      home: Splashscreen1(),
       debugShowCheckedModeBanner: false,
     );
   }

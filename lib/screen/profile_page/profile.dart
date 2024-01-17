@@ -4,6 +4,7 @@ import 'package:bridge_events/screen/homePage/navigation_page/navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import '../../controller/get_user_data_controller/getUserData.dart';
 import '../../controller/google_controller/google_controller_file.dart';
 
@@ -43,8 +44,14 @@ class _ProfileState extends State<Profile> {
         future: _getUserData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: const CircularProgressIndicator(color: Colors.black,backgroundColor: Colors.green,));
-          } else if (snapshot.hasError) {
+            return
+              SizedBox(
+                width: 500,
+                height: 500,
+                child:Lottie.
+                asset('assets/json/loading.json',
+                  repeat: true, reverse: false, animate: true,),
+              );          } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
             List<QueryDocumentSnapshot<Object?>> data = snapshot.data!;

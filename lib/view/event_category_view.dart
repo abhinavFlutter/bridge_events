@@ -1,14 +1,16 @@
 import 'dart:ui';
-
-import 'package:bridge_events/controller/event_category_controller.dart';
 import 'package:bridge_events/view/description_view.dart';
-import 'package:cached_network_image/cached_network_image.dart'; // Import the package
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../screen/homePage/carousel_page/carousel.dart';
+import 'des_controller.dart';
+import 'des_view.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -18,11 +20,18 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final EventCategoryController _eventCategoryController =
-  Get.put(EventCategoryController());
+  final AlleventsController _alleventsController = AlleventsController();
 
   final itemHeight = 250.0;
   final itemWidth = 180.0;
+
+  late User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,21 +104,31 @@ class _MainScreenState extends State<MainScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10, top: 10),
-                child: FutureBuilder<List<QueryDocumentSnapshot<Object?>>>(
-                  future: _eventCategoryController.getEventCategoryData(),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: _alleventsController.getAlleventsStream(),
                   builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final categoryName = snapshot.data!
-                          .map((doc) => doc['categoryName'].toString())
-                          .toList();
-                      final categoryImg = snapshot.data!
-                          .map((doc) => doc['categoryImg'].toString())
-                          .toList();
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return SizedBox(
+                        width: 500,
+                        height: 500,
+                        child:Lottie.
+                        asset('assets/json/loading.json',
+                            repeat: true, reverse: false, animate: true,),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (!snapshot.hasData ||
+                        snapshot.data!.docs.isEmpty) {
+                      return Text('No categories found');
+                    } else {
+                      QuerySnapshot querySnapshot = snapshot.data!;
+                      List<QueryDocumentSnapshot> documents =
+                          querySnapshot.docs;
 
                       return GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: categoryName.length,
+                        itemCount: documents.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           childAspectRatio: (itemWidth / itemHeight),
                           crossAxisCount: 2,
@@ -117,11 +136,38 @@ class _MainScreenState extends State<MainScreen> {
                           crossAxisSpacing: 20.0,
                         ),
                         itemBuilder: (context, index) {
-                          final imagePath = categoryImg[index];
-                          final title = categoryName[index];
+                          QueryDocumentSnapshot document = documents[index];
+                          Map<String, dynamic> documentData =
+                              document.data() as Map<String, dynamic>;
+
+                          String documentId = document.id;
+                          String cName = documentData['cname'] ?? '';
+                          String cImage = documentData['cimage'] ?? '';
                           return InkWell(
-                            onTap: () {
-                              Get.to(() => const DescriptionPage());
+                            onTap: () async {
+                              final documentId = document.id;
+                              final List<dynamic>? referenceList =
+                                  documentData['products'];
+
+                              if (referenceList != null) {
+                                final List<DocumentReference> references =
+                                    referenceList.cast<
+                                        DocumentReference>(); // Cast to DocumentReference
+
+                                // Fetch data from the referenced allevents documents
+                                final allEventsData = await Future.wait(
+                                    references.map((ref) => ref.get()));
+
+                                Get.to(
+                                  () => DescriptionPage(
+                                    documentId: documentId,
+                                    categoryName: cName,
+                                    categoryImage: cImage,
+                                    allEventsData: allEventsData,
+                                    user: user,
+                                  ),
+                                );
+                              }
                             },
                             child: Card(
                               elevation: 0,
@@ -132,15 +178,15 @@ class _MainScreenState extends State<MainScreen> {
                                 children: [
                                   // CachedNetworkImage
                                   CachedNetworkImage(
-                                    imageUrl: imagePath,
+                                    imageUrl: cImage,
                                     imageBuilder: (context, imageProvider) =>
                                         ClipRRect(
-                                          borderRadius: BorderRadius.circular(20.0),
-                                          child: Image(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      child: Image(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                     placeholder: (context, url) =>
                                         Container(color: Colors.grey[200]),
                                     errorWidget: (context, url, error) =>
@@ -156,7 +202,7 @@ class _MainScreenState extends State<MainScreen> {
                                       children: [
                                         ClipRRect(
                                           borderRadius:
-                                          BorderRadius.circular(20.0),
+                                              BorderRadius.circular(20.0),
                                           child: BackdropFilter(
                                             filter: ImageFilter.blur(
                                               sigmaX: 8.0,
@@ -167,10 +213,10 @@ class _MainScreenState extends State<MainScreen> {
                                               width: 145.0,
                                               child: Center(
                                                 child: Text(
-                                                  title,
+                                                  cName.toString(),
                                                   style: const TextStyle(
                                                     fontWeight: FontWeight.w600,
-                                                    fontSize: 20.0,
+                                                    fontSize: 18.0,
                                                     color: Colors.white,
                                                   ),
                                                 ),
@@ -186,13 +232,6 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                           );
                         },
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      return CircularProgressIndicator(
-                        color: Colors.black,
-                        backgroundColor: Colors.green,
                       );
                     }
                   },

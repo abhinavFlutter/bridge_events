@@ -108,7 +108,7 @@ class FavController {
           .collection('favorite')
           .doc(uId)
           .collection('favoriteItems')
-          .doc(favoriteItem.descriptionId) // Assuming descriptionId is a unique identifier
+          .doc(favoriteItem.categoryId) // Assuming descriptionId is a unique identifier
           .delete();
     } catch (error) {
       // Handle error

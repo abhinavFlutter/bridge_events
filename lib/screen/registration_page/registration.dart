@@ -2,6 +2,7 @@
 import 'package:bridge_events/controller/email_pass_controller/email_pass_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../controller/google_controller/google_controller_file.dart';
 import '../login_page/login.dart';
@@ -48,7 +49,8 @@ EmailPassController emailPassController=EmailPassController();
                           style: TextStyle(
                               fontSize: 40, fontWeight: FontWeight.w900)),
                     )),
-                Image(image: AssetImage('assets/images/registerorg.jpg')),
+                Lottie.asset('assets/json/register.json'),
+                // Image(image: AssetImage('assets/images/registerorg.jpg')),
 
                 Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                   Padding(

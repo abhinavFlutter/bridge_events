@@ -1,4 +1,6 @@
 
+import 'package:bridge_events/view/des_test.dart';
+import 'package:bridge_events/view/des_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
@@ -28,7 +30,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       menuBackgroundColor: Colors.black,
       controller: zoomDrawerController,
       menuScreen: const MenuScreen(),
-      mainScreen:  MainScreen(),
+      mainScreen:   MainScreen(),
       style: DrawerStyle.style4,
       borderRadius: 50,
       angle: -18,
